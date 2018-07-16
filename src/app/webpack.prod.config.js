@@ -10,15 +10,13 @@ config.plugins.push(
             NODE_ENV: JSON.stringify('production'),
         },
     }),
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: false,
-        },
-        sourceMap: true
-    }),
     new webpack.LoaderOptionsPlugin({
         minimize: true
     })
 );
+
+config.optimization = {
+    minimize: true,
+};
 
 module.exports = config;
