@@ -9,7 +9,6 @@ module.exports = {
         app: ['babel-polyfill', './js/src/main.jsx'],
         vendor: [
             'axios',
-            'immutability-helper',
             'leaflet',
             'react',
             'react-dom',
@@ -18,7 +17,6 @@ module.exports = {
             'react-router',
             'react-router-dom',
             'redux',
-            'redux-act',
             'redux-logger',
             'redux-thunk',
         ],
