@@ -1,0 +1,33 @@
+#osm-extraction-map {
+    height: 100%;
+    width: 100%;
+
+    > .leaflet-control-container {
+        > .leaflet-right {
+            > .leaflet-control-zoom {
+                border: none;
+
+                > .leaflet-control-zoom-in {
+                    margin-bottom: 0.5rem;
+                    background-color: $turquoise;
+                    color: $white;
+
+                    text-align: center;
+                    justify-content: center;
+                    display: flex;
+                    font-size: 18px;
+                }
+
+                > .leaflet-control-zoom-out {
+                    background-color: $turquoise;
+                    color: $white;
+
+                    text-align: center;
+                    justify-content: center;
+                    display: flex;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
