@@ -41,7 +41,11 @@ module.exports = {
                 loader: 'babel-loader',
                 query: {
                     presets: ['env', 'react'],
-                    plugins: ['react-hot-loader/babel', 'transform-object-assign'],
+                    plugins: [
+                        'react-hot-loader/babel',
+                        'transform-object-assign',
+                        'transform-object-rest-spread',
+                    ],
                 },
             },
             {

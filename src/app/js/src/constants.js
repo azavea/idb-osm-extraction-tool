@@ -8,3 +8,8 @@ export const initialMapCenter = [
     -58.9302,
 ];
 export const initialMapZoom = 7;
+
+export const drawToolTypeEnum = {
+    box: 'box',
+    shape: 'shape',
+};
