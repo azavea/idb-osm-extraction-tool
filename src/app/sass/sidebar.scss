@@ -19,6 +19,33 @@
         }
     }
 
+    > .draw-tools {
+        align-self: center;
+        width: 80%;
+        flex: 2;
+        margin-top: 2rem;
+
+        > .label {
+            margin-bottom: 0.5rem;
+        }
+
+        > .buttons {
+            display: flex;
+            justify-content: space-between;
+
+            > .button {
+                border: none;
+                margin-bottom: 2rem;
+                align-self: center;
+                background-color: $buttongray;
+                color: $black;
+                font-size: 1.3rem;
+                height: 3.5rem;
+                width: 45%;
+            }
+        }
+    }
+
     > .button {
         &.-extract {
             border: none;
