@@ -53,6 +53,31 @@
         }
     }
 
+    > .filters {
+        flex: 7;
+        display: flex;
+        flex-direction: column;
+
+        > .select {
+            width: 80%;
+            align-self: center;
+            margin: 1rem;
+            display: flex;
+            flex-direction: column;
+
+            > .label {
+                margin-bottom: 1rem;
+            }
+
+            > .subscript {
+                margin-top: 0.5rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+        }
+    }
+
     > .button {
         &.-extract {
             border: none;
