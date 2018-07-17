@@ -23,6 +23,7 @@ import {
     initialMapZoom,
     drawToolTypeEnum,
     areaOfInterestStyle,
+    overpassDataStyle,
 } from '../constants';
 
 
@@ -102,12 +103,21 @@ class OSMExtractionMap extends Component {
     render() {
         const {
             drawnShape,
+            data,
         } = this.props;
 
         const areaOfInterest = drawnShape ? (
             <GeoJSON
                 data={drawnShape}
                 style={areaOfInterestStyle}
+            />) : null;
+
+        const overpassAPIData = data ? (
+            <GeoJSON
+                data={data}
+                pointToLayer={
+                    (_, latLng) => L.circleMarker(latLng, overpassDataStyle)
+                }
             />) : null;
 
         return (
@@ -125,6 +135,7 @@ class OSMExtractionMap extends Component {
                 />
                 <ZoomControl position="topright" />
                 {areaOfInterest}
+                {overpassAPIData}
             </ReactLeafletMap>
         );
     }
@@ -133,12 +144,14 @@ class OSMExtractionMap extends Component {
 OSMExtractionMap.defaultProps = {
     drawTool: null,
     drawnShape: null,
+    data: null,
 };
 
 OSMExtractionMap.propTypes = {
     dispatch: func.isRequired,
     drawTool: oneOf(Object.values(drawToolTypeEnum)),
     drawnShape: object, // eslint-disable-line react/forbid-prop-types
+    data: object, // eslint-disable-line react/forbid-prop-types
     drawingActive: bool.isRequired,
 };
 
@@ -150,11 +163,17 @@ function mapStateToProps({
             drawnShape,
         },
     },
+    data: {
+        overpass: {
+            data,
+        },
+    },
 }) {
     return {
         drawTool,
         drawingActive,
         drawnShape,
+        data,
     };
 }
 
