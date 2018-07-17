@@ -66,3 +66,5 @@ export const dateRangeOptions = [
         label: 'Past year',
     },
 ];
+
+export const overpassAPIurl = 'https://overpass-api.de/api/interpreter';

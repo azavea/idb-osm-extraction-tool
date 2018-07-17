@@ -1,6 +1,13 @@
+import axios from 'axios';
+
+import { overpassAPIurl } from './constants';
+import { createOverpassAPIRequestFormData } from './utils';
+
 export const START_OVERPASS_REQUEST = 'START_OVERPASS_REQUEST';
 export const FAIL_OVERPASS_REQUEST = 'FAIL_OVERPASS_REQUEST';
 export const COMPLETE_OVERPASS_REQUEST = 'COMPLETE_OVERPASS_REQUEST';
+
+const method = 'post';
 
 function startOverpassRequest() {
     return {
@@ -24,12 +31,38 @@ function completeOverpassRequest(payload) {
 }
 
 export function makeOverpassAPIRequest() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(startOverpassRequest());
 
-        return Promise
-            .resolve(1)
-            .then(data => dispatch(completeOverpassRequest(data)))
+        const {
+            ui: {
+                drawing: {
+                    drawnShape,
+                },
+                filters: {
+                    dateRange,
+                    features,
+                },
+            },
+        } = getState();
+
+        const requestData = createOverpassAPIRequestFormData(
+            drawnShape,
+            dateRange,
+            features,
+        );
+
+        return axios({
+            method,
+            data: requestData,
+            url: overpassAPIurl,
+            config: {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            },
+        })
+            .then(({ data }) => dispatch(completeOverpassRequest(data)))
             .catch(e => dispatch(failOverpassRequest(e)));
     };
 }
