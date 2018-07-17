@@ -68,3 +68,11 @@ export const dateRangeOptions = [
 ];
 
 export const overpassAPIurl = 'https://overpass-api.de/api/interpreter';
+
+export const overpassDataStyle = {
+    color: '#DFB059',
+    fill: true,
+    opacity: 1.0,
+    fillOpacity: 1.0,
+    radius: 5,
+};

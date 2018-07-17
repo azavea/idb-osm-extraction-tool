@@ -2,7 +2,7 @@ import axios from 'axios';
 import osmtogeojson from 'osmtogeojson';
 
 import { overpassAPIurl } from './constants';
-import { createOverpassAPIRequestFormData } from './utils';
+import createOverpassAPIRequestFormData from './utils';
 
 export const START_OVERPASS_REQUEST = 'START_OVERPASS_REQUEST';
 export const FAIL_OVERPASS_REQUEST = 'FAIL_OVERPASS_REQUEST';
@@ -46,6 +46,10 @@ export function makeOverpassAPIRequest() {
                 },
             },
         } = getState();
+
+        if (!drawnShape) {
+            return dispatch(failOverpassRequest('no drawn shape'));
+        }
 
         const requestData = createOverpassAPIRequestFormData(
             drawnShape,
