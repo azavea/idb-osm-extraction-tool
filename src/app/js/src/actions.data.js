@@ -1,4 +1,5 @@
 import axios from 'axios';
+import osmtogeojson from 'osmtogeojson';
 
 import { overpassAPIurl } from './constants';
 import { createOverpassAPIRequestFormData } from './utils';
@@ -62,7 +63,8 @@ export function makeOverpassAPIRequest() {
                 },
             },
         })
-            .then(({ data }) => dispatch(completeOverpassRequest(data)))
+            .then(({ data }) => osmtogeojson(data))
+            .then(data => dispatch(completeOverpassRequest(data)))
             .catch(e => dispatch(failOverpassRequest(e)));
     };
 }
