@@ -22,7 +22,6 @@
     > .draw-tools {
         align-self: center;
         width: 80%;
-        flex: 2;
         margin-top: 2rem;
 
         > .label {
@@ -54,7 +53,7 @@
     }
 
     > .filters {
-        flex: 7;
+        flex: 2;
         display: flex;
         flex-direction: column;
 

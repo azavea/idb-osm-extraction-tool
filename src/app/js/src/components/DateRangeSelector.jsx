@@ -1,9 +1,18 @@
 import React from 'react';
+import { func, oneOf } from 'prop-types';
+import { connect } from 'react-redux';
 import Select from 'react-select';
+
+import { selectDateRange } from '../actions.ui';
 
 import { dateRangeOptions } from '../constants';
 
-export default function DateRangeSelector() {
+function DateRangeSelector({
+    dateRange,
+    dispatch,
+}) {
+    const handleSelectDateRange = ({ value }) => dispatch(selectDateRange(value));
+
     return (
         <div className="select -date">
             <div className="label">
@@ -11,8 +20,11 @@ export default function DateRangeSelector() {
             </div>
             <Select
                 name="date-range-selector"
-                value={null}
+                onChange={handleSelectDateRange}
+                value={dateRange}
                 options={dateRangeOptions}
+                clearable={false}
+                placeholder="Choose a date range of map data..."
             />
             <div className="subscript">
                 (optional)
@@ -20,3 +32,26 @@ export default function DateRangeSelector() {
         </div>
     );
 }
+
+DateRangeSelector.defaultProps = {
+    dateRange: null,
+};
+
+DateRangeSelector.propTypes = {
+    dateRange: oneOf(dateRangeOptions.map(({ value }) => value)),
+    dispatch: func.isRequired,
+};
+
+function mapStateToProps({
+    ui: {
+        filters: {
+            dateRange,
+        },
+    },
+}) {
+    return {
+        dateRange,
+    };
+}
+
+export default connect(mapStateToProps)(DateRangeSelector);

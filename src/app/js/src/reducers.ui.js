@@ -3,6 +3,8 @@ import {
     START_DRAWING_SHAPE,
     CANCEL_DRAWING,
     COMPLETE_DRAWING,
+    SELECT_DATE_RANGE,
+    SELECT_FEATURES,
 } from './actions.ui';
 
 import { drawToolTypeEnum } from './constants';
@@ -12,6 +14,10 @@ const initialState = {
         drawTool: null,
         active: false,
         drawnShape: null,
+    },
+    filters: {
+        dateRange: null,
+        features: null,
     },
 };
 
@@ -51,6 +57,22 @@ export default function uiReducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 drawing: initialState.drawing,
+            };
+        case SELECT_DATE_RANGE:
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    dateRange: payload,
+                },
+            };
+        case SELECT_FEATURES:
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    features: payload,
+                },
             };
         default:
             return state;
