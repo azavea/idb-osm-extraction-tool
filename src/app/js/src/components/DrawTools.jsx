@@ -16,7 +16,8 @@ function DrawTools({
     active,
     boundariesConfirmed,
 }) {
-    const drawIcon = <i className="far fa-square" />;
+    const drawBoxIcon = <i className="far fa-square" />;
+    const drawShapeIcon = <i className="far fa-star" />;
     const cancelIcon = <i className="far fa-times-circle" />;
     const checkmarkIcon = <i className="fas fa-check" />;
 
@@ -41,14 +42,14 @@ function DrawTools({
                         className="button -box"
                         onClick={() => dispatch(startDrawingBox())}
                     >
-                        {drawIcon}
+                        {drawBoxIcon}
                         BOX
                     </button>
                     <button
                         className="button -shape"
                         onClick={() => dispatch(startDrawingShape())}
                     >
-                        {drawIcon}
+                        {drawShapeIcon}
                         SHAPE
                     </button>
                 </Fragment>
@@ -69,7 +70,7 @@ function DrawTools({
                     {
                         drawTool === drawToolTypeEnum.box ?
                             cancelIcon :
-                            drawIcon
+                            drawBoxIcon
                     }
                     {
                         drawTool === drawToolTypeEnum.box ?
@@ -89,7 +90,7 @@ function DrawTools({
                     {
                         drawTool === drawToolTypeEnum.shape ?
                             cancelIcon :
-                            drawIcon
+                            drawShapeIcon
                     }
                     {
                         drawTool === drawToolTypeEnum.shape ?
