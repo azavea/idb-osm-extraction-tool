@@ -13,3 +13,10 @@ export const drawToolTypeEnum = {
     box: 'box',
     shape: 'shape',
 };
+
+export const areaOfInterestStyle = {
+    color: '#0A393C',
+    fill: false,
+    opacity: 1.0,
+    weight: 3,
+};

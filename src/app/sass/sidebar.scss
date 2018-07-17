@@ -42,8 +42,11 @@
                 font-size: 1.3rem;
                 height: 3.5rem;
                 width: 45%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
 
-                &.-active {
+                &.-confirmed {
                     width: 100% !important;
                 }
             }

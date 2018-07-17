@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { bool, func, oneOf } from 'prop-types';
+import { bool, func, object, oneOf } from 'prop-types';
 import { connect } from 'react-redux';
 import {
     Map as ReactLeafletMap,
     TileLayer,
     ZoomControl,
+    GeoJSON,
 } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet-draw';
@@ -18,6 +19,7 @@ import {
     initialMapCenter,
     initialMapZoom,
     drawToolTypeEnum,
+    areaOfInterestStyle,
 } from '../constants';
 
 
@@ -44,8 +46,13 @@ class OSMExtractionMap extends Component {
             this.handleDrawAreaOfInterest,
         );
 
-        this.rectangleDrawHandler = new L.Draw.Rectangle(leafletElement);
-        this.polygonDrawHandler = new L.Draw.Polygon(leafletElement);
+        this.rectangleDrawHandler = new L.Draw.Rectangle(leafletElement, {
+            shapeOptions: areaOfInterestStyle,
+        });
+
+        this.polygonDrawHandler = new L.Draw.Polygon(leafletElement, {
+            shapeOptions: areaOfInterestStyle,
+        });
     }
 
     componentDidUpdate({ drawingActive: drawingWasActive }) {
@@ -83,6 +90,16 @@ class OSMExtractionMap extends Component {
     }
 
     render() {
+        const {
+            drawnShape,
+        } = this.props;
+
+        const areaOfInterest = drawnShape ? (
+            <GeoJSON
+                data={drawnShape}
+                style={areaOfInterestStyle}
+            />) : null;
+
         return (
             <ReactLeafletMap
                 id="osm-extraction-map"
@@ -97,6 +114,7 @@ class OSMExtractionMap extends Component {
                     maxZoom={basemapMaxZoom}
                 />
                 <ZoomControl position="topright" />
+                {areaOfInterest}
             </ReactLeafletMap>
         );
     }
@@ -104,11 +122,13 @@ class OSMExtractionMap extends Component {
 
 OSMExtractionMap.defaultProps = {
     drawTool: null,
+    drawnShape: null,
 };
 
 OSMExtractionMap.propTypes = {
     dispatch: func.isRequired,
     drawTool: oneOf(Object.values(drawToolTypeEnum)),
+    drawnShape: object, // eslint-disable-line react/forbid-prop-types
     drawingActive: bool.isRequired,
 };
 
@@ -117,12 +137,14 @@ function mapStateToProps({
         drawing: {
             drawTool,
             active: drawingActive,
+            drawnShape,
         },
     },
 }) {
     return {
         drawTool,
         drawingActive,
+        drawnShape,
     };
 }
 

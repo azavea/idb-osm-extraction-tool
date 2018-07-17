@@ -14,8 +14,26 @@ function DrawTools({
     dispatch,
     drawTool,
     active,
+    boundariesConfirmed,
 }) {
+    const drawIcon = <i className="far fa-square" />;
+    const cancelIcon = <i className="far fa-times-circle" />;
+    const checkmarkIcon = <i className="fas fa-check" />;
+
     const buttons = (() => {
+        if (boundariesConfirmed) {
+            return (
+                <button
+                    className="button -confirmed"
+                    onClick={() => dispatch(cancelDrawing())}
+                >
+                    {checkmarkIcon}
+                    Boundaries confirmed
+                    {cancelIcon}
+                </button>
+            );
+        }
+
         if (!active) {
             return (
                 <Fragment>
@@ -23,12 +41,14 @@ function DrawTools({
                         className="button -box"
                         onClick={() => dispatch(startDrawingBox())}
                     >
+                        {drawIcon}
                         BOX
                     </button>
                     <button
                         className="button -shape"
                         onClick={() => dispatch(startDrawingShape())}
                     >
+                        {drawIcon}
                         SHAPE
                     </button>
                 </Fragment>
@@ -48,6 +68,11 @@ function DrawTools({
                 >
                     {
                         drawTool === drawToolTypeEnum.box ?
+                            cancelIcon :
+                            drawIcon
+                    }
+                    {
+                        drawTool === drawToolTypeEnum.box ?
                             'CANCEL' :
                             'BOX'
                     }
@@ -55,12 +80,17 @@ function DrawTools({
                 <button
                     className="button -shape"
                     onClick={
-                        drawTool === drawToolTypeEnum.box ?
+                        drawTool === drawToolTypeEnum.shape ?
                             () => dispatch(cancelDrawing()) :
                             null
                     }
                     disabled={drawTool === drawToolTypeEnum.box}
                 >
+                    {
+                        drawTool === drawToolTypeEnum.shape ?
+                            cancelIcon :
+                            drawIcon
+                    }
                     {
                         drawTool === drawToolTypeEnum.shape ?
                             'CANCEL' :
@@ -91,6 +121,7 @@ DrawTools.propTypes = {
     dispatch: func.isRequired,
     drawTool: oneOf(Object.values(drawToolTypeEnum)),
     active: bool.isRequired,
+    boundariesConfirmed: bool.isRequired,
 };
 
 function mapStateToProps({
@@ -98,12 +129,14 @@ function mapStateToProps({
         drawing: {
             drawTool,
             active,
+            drawnShape,
         },
     },
 }) {
     return {
         drawTool,
         active,
+        boundariesConfirmed: !!drawnShape,
     };
 }
 
