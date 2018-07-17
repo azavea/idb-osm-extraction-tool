@@ -10,7 +10,10 @@ import {
 import L from 'leaflet';
 import 'leaflet-draw';
 
-import { completeDrawing } from '../actions.ui';
+import {
+    cancelDrawing,
+    completeDrawing,
+} from '../actions.ui';
 
 import {
     basemapTilesUrl,
@@ -27,6 +30,7 @@ class OSMExtractionMap extends Component {
     constructor(props) {
         super(props);
         this.handleDrawAreaOfInterest = this.handleDrawAreaOfInterest.bind(this);
+        this.handleCancelDrawing = this.handleCancelDrawing.bind(this);
     }
 
     componentDidMount() {
@@ -37,8 +41,8 @@ class OSMExtractionMap extends Component {
         } = this;
 
         leafletElement.on(
-            L.Draw.Event.DRAWSTART,
-            () => { window.console.log('started drawing!'); },
+            L.Draw.Event.DRAWSTOP,
+            this.handleCancelDrawing,
         );
 
         leafletElement.on(
@@ -87,6 +91,12 @@ class OSMExtractionMap extends Component {
 
     handleDrawAreaOfInterest({ layer }) {
         return this.props.dispatch(completeDrawing(layer.toGeoJSON()));
+    }
+
+    handleCancelDrawing() {
+        return !this.props.drawnShape ?
+            this.props.dispatch(cancelDrawing()) :
+            null;
     }
 
     render() {
