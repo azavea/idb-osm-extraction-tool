@@ -7,19 +7,6 @@ var outputPath = '/usr/dist';
 module.exports = {
     entry: {
         app: ['babel-polyfill', './js/src/main.jsx'],
-        vendor: [
-            'axios',
-            'leaflet',
-            'react',
-            'react-dom',
-            'react-leaflet',
-            'react-redux',
-            'react-router',
-            'react-router-dom',
-            'redux',
-            'redux-logger',
-            'redux-thunk',
-        ],
     },
     output: {
         path: outputPath,
@@ -43,6 +30,7 @@ module.exports = {
                     presets: ['env', 'react'],
                     plugins: [
                         'react-hot-loader/babel',
+                        'syntax-dynamic-import',
                         'transform-object-assign',
                         'transform-object-rest-spread',
                     ],
@@ -61,17 +49,17 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader'
-                    }, 
+                    },
                     {
                         loader: 'resolve-url-loader'
-                    }, 
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {
                             sourceMap: true,
                             plugins: () => [require('autoprefixer')]
                         }
-                    }, 
+                    },
                     {
                         loader: 'sass-loader?sourceMap'
                     }
@@ -97,9 +85,15 @@ module.exports = {
             {
                 test: require.resolve('leaflet'),
                 use: [
-                    'expose-loader?L',
-                    'expose-loader?leaflet'
-                ]
+                    {
+                        loader: 'expose-loader',
+                        query: 'leaflet',
+                    },
+                    {
+                        loader: 'expose-loader',
+                        query: 'L',
+                    },
+                ],
             },
         ],
     },

@@ -58,15 +58,8 @@ To add a new NPM package to the project:
 
 - Manually add the package to the project's `package.json` file, ensuring that you
 pin it to a specific version.
-- Add the package to the `vendor` array in `webpack.common.config.js`.
 - Run `./scripts/update` in the VM.
 - Commit the changes to the following files to git:
     - `package.json`
     - `yarn.lock`
-    - `webpack.common.config.js`
-
-#### Notes
-
-* We usually pin packages to a specific version to minimize build errors.
-* For packages in the regular/non-dev dependencies section of `package.json`,
-  manually add the package name to the `vendor` array in `webpack.config.json`
+- We usually pin packages to a specific version to minimize build errors.
