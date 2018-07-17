@@ -24,7 +24,7 @@ function DateRangeSelector({
                 value={dateRange}
                 options={dateRangeOptions}
                 clearable={false}
-                placeholder="Choose a date range of map data..."
+                placeholder="Choose a date range..."
             />
             <div className="subscript">
                 (optional)
