@@ -20,3 +20,49 @@ export const areaOfInterestStyle = {
     opacity: 1.0,
     weight: 3,
 };
+
+export const featureOptions = [
+    {
+        value: 'buildings',
+        label: 'Buildings',
+    },
+    {
+        value: 'emergencyInfraStructure',
+        label: 'Emergency infrastructure',
+    },
+    {
+        value: 'powerInfrastructure',
+        label: 'Power infrastructure',
+    },
+    {
+        value: 'roads',
+        label: 'Roads',
+    },
+    {
+        value: 'waterways',
+        label: 'Waterways',
+    },
+    {
+        value: 'airports',
+        label: 'Airports',
+    },
+];
+
+export const dateRangeOptions = [
+    {
+        value: 'all',
+        label: 'All',
+    },
+    {
+        value: 'pastMonth',
+        label: 'Past month',
+    },
+    {
+        value: 'pastThreeMonths',
+        label: 'Past 3 months',
+    },
+    {
+        value: 'pastYear',
+        label: 'Past year',
+    },
+];

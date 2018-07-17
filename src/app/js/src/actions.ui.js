@@ -2,6 +2,8 @@ export const START_DRAWING_BOX = 'START_DRAWING_BOX';
 export const START_DRAWING_SHAPE = 'START_DRAWING_SHAPE';
 export const CANCEL_DRAWING = 'CANCEL_DRAWING';
 export const COMPLETE_DRAWING = 'COMPLETE_DRAWING';
+export const SELECT_DATE_RANGE = 'SELECT_DATE_RANGE';
+export const SELECT_FEATURES = 'SELECT_FEATURES';
 
 export function startDrawingBox() {
     return {
@@ -24,6 +26,20 @@ export function cancelDrawing() {
 export function completeDrawing(payload) {
     return {
         type: COMPLETE_DRAWING,
+        payload,
+    };
+}
+
+export function selectDateRange(payload) {
+    return {
+        type: SELECT_DATE_RANGE,
+        payload,
+    };
+}
+
+export function selectFeatures(payload) {
+    return {
+        type: SELECT_FEATURES,
         payload,
     };
 }
