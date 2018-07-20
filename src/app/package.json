@@ -36,7 +36,8 @@
     "react-select": "~1.2.0",
     "redux": "~3.7.2",
     "redux-logger": "~3.0.6",
-    "redux-thunk": "~2.2.0"
+    "redux-thunk": "~2.2.0",
+    "shp-write": "github:azavea/shp-write#ki/add-ie-support"
   },
   "devDependencies": {
     "autoprefixer": "~8.2.0",

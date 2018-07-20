@@ -2,7 +2,10 @@ import axios from 'axios';
 import osmtogeojson from 'osmtogeojson';
 
 import { overpassAPIurl } from './constants';
-import createOverpassAPIRequestFormData from './utils';
+import {
+    createOverpassAPIRequestFormData,
+    downloadShapefile,
+} from './utils';
 
 export const START_OVERPASS_REQUEST = 'START_OVERPASS_REQUEST';
 export const FAIL_OVERPASS_REQUEST = 'FAIL_OVERPASS_REQUEST';
@@ -68,6 +71,7 @@ export function makeOverpassAPIRequest() {
             },
         })
             .then(({ data }) => osmtogeojson(data))
+            .then(data => downloadShapefile(data))
             .then(data => dispatch(completeOverpassRequest(data)))
             .catch(e => dispatch(failOverpassRequest(e)));
     };
