@@ -9,11 +9,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "bento/ubuntu-16.04"
 
-  config.vm.synced_folder "./", "/vagrant", type: "rsync",
-    rsync__exclude: ["deployment/ansible/roles/azavea*/"],
-    rsync__args: ["--verbose", "--archive", "-z"],
-    rsync__rsync_path: "sudo rsync"
-
+  config.vm.synced_folder "./", "/vagrant"
   config.vm.synced_folder "~/.aws", "/home/vagrant/.aws"
 
   config.vm.provider "virtualbox" do |vb|
