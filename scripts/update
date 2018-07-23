@@ -19,15 +19,11 @@ then
     then
         usage
     else
-        # Install NPM modules
-        docker-compose \
-            -f docker-compose.yml \
-            run --rm --no-deps app \
-            yarn
+        pushd ./src
 
-        # Build containers.
-        docker-compose \
-            -f docker-compose.yml \
-            build
+        # Install NPM modules
+        yarn
+
+        popd
     fi
 fi

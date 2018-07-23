@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var outputPath = '/usr/dist';
+var outputPath = path.join(__dirname, '..', 'dist');
 
 module.exports = {
     entry: {
@@ -80,7 +80,9 @@ module.exports = {
             },
             {
                 test: /\.(html)$/,
-                loader: 'html-loader?name=[name].[ext]',
+                use: [
+                    'html-loader',
+                ],
             },
             {
                 test: require.resolve('leaflet'),
