@@ -80,7 +80,9 @@ module.exports = {
             },
             {
                 test: /\.(html)$/,
-                loader: 'html-loader?name=[name].[ext]',
+                use: [
+                    'html-loader',
+                ],
             },
             {
                 test: require.resolve('leaflet'),
