@@ -9,7 +9,7 @@ fi
 function usage() {
     echo -n "Usage: $(basename "$0")
 
-Starts servers using docker-compose.
+Starts webpack dev server.
 "
 }
 
@@ -19,6 +19,10 @@ then
     then
         usage
     else
-        docker-compose -f docker-compose.yml up
+        pushd ./src
+
+        yarn run dev-server
+
+        popd
     fi
 fi

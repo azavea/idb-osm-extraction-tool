@@ -22,10 +22,12 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
             shellcheck scripts/*
         fi
 
+        pushd ./src
+
         # Lint JavaScript
-        docker-compose \
-            -f docker-compose.yml \
-            run --rm --entrypoint ./node_modules/.bin/eslint \
-            app js/src/ --ext .js --ext .jsx
+        ./node_modules/.bin/eslint \
+            js/src/ --ext .js --ext .jsx
+
+        popd
     fi
 fi

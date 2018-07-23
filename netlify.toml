@@ -1,17 +1,17 @@
 [Settings]
   ID = "idb-osm-extraction-tool"
 
-# Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.  
+# Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.
 
 [build]
-# This is the directory to change to before starting a build. 
-  base    = "."
+# This is the directory to change to before starting a build.
+  base    = "./src"
   # NOTE: This is where we will look for package.json/.nvmrc/etc, not root.
 # This is the directory that you are publishing from (relative to root of your repo)
   publish = "./dist"
 # This will be your default build command
-  command = "./scripts/cibuild" 
-  
+  command = "pushd .. && ./scripts/cibuild && popd"
+
 [[headers]]
   for = "/*"
 [headers.values]
