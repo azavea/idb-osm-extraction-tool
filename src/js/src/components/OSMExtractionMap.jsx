@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, object, oneOf } from 'prop-types';
+import { bool, func, object, oneOf, string } from 'prop-types';
 import { connect } from 'react-redux';
 import {
     Map as ReactLeafletMap,
@@ -24,8 +24,12 @@ import {
     drawToolTypeEnum,
     areaOfInterestStyle,
     overpassDataStyle,
+    controlPositionsEnum,
+    geocoderInputTypeEnum,
+    geocoderSuggestionsPropType,
 } from '../constants';
 
+import OSMGeocoderControl from './OSMGeocoderControl';
 
 class OSMExtractionMap extends Component {
     constructor(props) {
@@ -60,17 +64,17 @@ class OSMExtractionMap extends Component {
         });
     }
 
-    componentDidUpdate({ drawingActive: drawingWasActive }) {
+    componentDidUpdate({
+        drawingActive: drawingWasActive,
+        geocoderSelection: previousGeocoderSelection,
+    }) {
         const {
             drawTool,
             drawingActive,
+            geocoderSelection,
         } = this.props;
 
-        if (drawingActive === drawingWasActive) {
-            return null;
-        }
-
-        if (drawingActive) {
+        if (drawingActive && !drawingWasActive) {
             switch (drawTool) {
                 case drawToolTypeEnum.box:
                     this.rectangleDrawHandler.enable();
@@ -87,7 +91,16 @@ class OSMExtractionMap extends Component {
             this.rectangleDrawHandler.disable();
         }
 
-        return null;
+        if (!geocoderSelection) {
+            return null;
+        }
+
+        if (previousGeocoderSelection &&
+            previousGeocoderSelection.text === geocoderSelection.text) {
+            return null;
+        }
+
+        return this.leafletMap.leafletElement.fitBounds(geocoderSelection.bounds);
     }
 
     handleDrawAreaOfInterest({ layer }) {
@@ -104,6 +117,11 @@ class OSMExtractionMap extends Component {
         const {
             drawnShape,
             data,
+            activeGeocoderInput,
+            geocoderSearchValue,
+            geocoderSuggestions,
+            geocoderSelection,
+            dispatch,
         } = this.props;
 
         const areaOfInterest = drawnShape ? (
@@ -133,7 +151,15 @@ class OSMExtractionMap extends Component {
                     attribution={basemapAttribution}
                     maxZoom={basemapMaxZoom}
                 />
-                <ZoomControl position="topright" />
+                <ZoomControl position={controlPositionsEnum.topright} />
+                <OSMGeocoderControl
+                    position={controlPositionsEnum.topleft}
+                    activeInput={activeGeocoderInput}
+                    searchValue={geocoderSearchValue}
+                    suggestions={geocoderSuggestions}
+                    selection={geocoderSelection}
+                    dispatch={dispatch}
+                />
                 {areaOfInterest}
                 {overpassAPIData}
             </ReactLeafletMap>
@@ -145,6 +171,8 @@ OSMExtractionMap.defaultProps = {
     drawTool: null,
     drawnShape: null,
     data: null,
+    geocoderSuggestions: null,
+    geocoderSelection: null,
 };
 
 OSMExtractionMap.propTypes = {
@@ -153,6 +181,10 @@ OSMExtractionMap.propTypes = {
     drawnShape: object, // eslint-disable-line react/forbid-prop-types
     data: object, // eslint-disable-line react/forbid-prop-types
     drawingActive: bool.isRequired,
+    activeGeocoderInput: oneOf(Object.values(geocoderInputTypeEnum)).isRequired,
+    geocoderSearchValue: string.isRequired,
+    geocoderSuggestions: geocoderSuggestionsPropType,
+    geocoderSelection: object, // eslint-disable-line react/forbid-prop-types
 };
 
 function mapStateToProps({
@@ -161,6 +193,16 @@ function mapStateToProps({
             drawTool,
             active: drawingActive,
             drawnShape,
+        },
+    },
+    geocoder: {
+        results: {
+            suggestions,
+            selection,
+        },
+        search: {
+            activeInput,
+            searchValue,
         },
     },
     data: {
@@ -174,6 +216,10 @@ function mapStateToProps({
         drawingActive,
         drawnShape,
         data,
+        activeGeocoderInput: activeInput,
+        geocoderSearchValue: searchValue,
+        geocoderSuggestions: suggestions,
+        geocoderSelection: selection,
     };
 }
 
