@@ -6204,7 +6204,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@~15.6.1:
+prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@~15.6.1:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -6373,6 +6373,12 @@ react-input-autosize@^2.1.2:
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"
   dependencies:
     prop-types "^15.5.8"
+
+react-leaflet-control@~1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-1.4.1.tgz#5da234621682d9c50657b65af042398512bda0fb"
+  dependencies:
+    prop-types "^15.5.7"
 
 react-leaflet@~1.9.1:
   version "1.9.1"
