@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, object, oneOf, string } from 'prop-types';
+import { bool, func, number, object, oneOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import {
     Map as ReactLeafletMap,
@@ -67,11 +67,13 @@ class OSMExtractionMap extends Component {
     componentDidUpdate({
         drawingActive: drawingWasActive,
         geocoderSelection: previousGeocoderSelection,
+        selectedCoordinates: previouslySelectedCoordinates,
     }) {
         const {
             drawTool,
             drawingActive,
             geocoderSelection,
+            selectedCoordinates,
         } = this.props;
 
         if (drawingActive && !drawingWasActive) {
@@ -91,16 +93,29 @@ class OSMExtractionMap extends Component {
             this.rectangleDrawHandler.disable();
         }
 
-        if (!geocoderSelection) {
+        const zoomToBounds = geocoderSelection ?
+            () => this.leafletMap.leafletElement.fitBounds(geocoderSelection.bounds) :
+            null;
+
+        const zoomToPoint = selectedCoordinates ?
+            () => this.leafletMap.leafletElement.setView(selectedCoordinates) :
+            null;
+
+        if (!geocoderSelection && !selectedCoordinates) {
             return null;
+        } else if (geocoderSelection && !previousGeocoderSelection) {
+            return zoomToBounds();
+        } else if (geocoderSelection && previousGeocoderSelection &&
+            (geocoderSelection.text !== previousGeocoderSelection.text)) {
+            return zoomToBounds();
+        } else if (selectedCoordinates && !previouslySelectedCoordinates) {
+            return zoomToPoint();
+        } else if (selectedCoordinates &&
+            (selectedCoordinates.toString() !== previouslySelectedCoordinates.toString())) {
+            return zoomToPoint();
         }
 
-        if (previousGeocoderSelection &&
-            previousGeocoderSelection.text === geocoderSelection.text) {
-            return null;
-        }
-
-        return this.leafletMap.leafletElement.fitBounds(geocoderSelection.bounds);
+        return null;
     }
 
     handleDrawAreaOfInterest({ layer }) {
@@ -121,6 +136,8 @@ class OSMExtractionMap extends Component {
             geocoderSearchValue,
             geocoderSuggestions,
             geocoderSelection,
+            geocoderCoordinatesLat,
+            geocoderCoordinatesLng,
             dispatch,
         } = this.props;
 
@@ -158,6 +175,8 @@ class OSMExtractionMap extends Component {
                     searchValue={geocoderSearchValue}
                     suggestions={geocoderSuggestions}
                     selection={geocoderSelection}
+                    lat={geocoderCoordinatesLat}
+                    lng={geocoderCoordinatesLng}
                     dispatch={dispatch}
                 />
                 {areaOfInterest}
@@ -173,6 +192,7 @@ OSMExtractionMap.defaultProps = {
     data: null,
     geocoderSuggestions: null,
     geocoderSelection: null,
+    selectedCoordinates: null,
 };
 
 OSMExtractionMap.propTypes = {
@@ -185,6 +205,9 @@ OSMExtractionMap.propTypes = {
     geocoderSearchValue: string.isRequired,
     geocoderSuggestions: geocoderSuggestionsPropType,
     geocoderSelection: object, // eslint-disable-line react/forbid-prop-types
+    selectedCoordinates: object, // eslint-disable-line react/forbid-prop-types
+    geocoderCoordinatesLat: oneOfType([number, string]).isRequired,
+    geocoderCoordinatesLng: oneOfType([number, string]).isRequired,
 };
 
 function mapStateToProps({
@@ -199,10 +222,15 @@ function mapStateToProps({
         results: {
             suggestions,
             selection,
+            coordinates,
         },
         search: {
             activeInput,
             searchValue,
+            coordinates: {
+                lat,
+                lng,
+            },
         },
     },
     data: {
@@ -220,6 +248,9 @@ function mapStateToProps({
         geocoderSearchValue: searchValue,
         geocoderSuggestions: suggestions,
         geocoderSelection: selection,
+        selectedCoordinates: coordinates,
+        geocoderCoordinatesLat: lat,
+        geocoderCoordinatesLng: lng,
     };
 }
 

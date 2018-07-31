@@ -9,6 +9,9 @@ import {
     START_SELECT_GEOCODER_SUGGESTION,
     FAIL_SELECT_GEOCODER_SUGGESTION,
     COMPLETE_SELECT_GEOCODER_SELECTION,
+    UPDATE_LATITUDE_COORDINATE,
+    UPDATE_LONGITUDE_COORDINATE,
+    COMPLETE_SELECT_COORDINATES_FROM_GEOCODER,
 } from './actions.geocoder';
 
 import { geocoderInputTypeEnum } from './constants';
@@ -16,17 +19,66 @@ import { geocoderInputTypeEnum } from './constants';
 const initialState = {
     results: {
         suggestions: null,
+        coordinates: null,
         selection: null,
         error: false,
     },
     search: {
         activeInput: geocoderInputTypeEnum.search,
         searchValue: '',
+        coordinates: {
+            lat: '',
+            lng: '',
+        },
     },
 };
 
 export default function geocoderReducer(state = initialState, { type, payload }) {
     switch (type) {
+        case UPDATE_LATITUDE_COORDINATE:
+            return {
+                ...state,
+                results: {
+                    ...state.results,
+                    coordinates: null,
+                },
+                search: {
+                    ...state.search,
+                    searchValue: initialState.search.searchValue,
+                    coordinates: {
+                        ...state.search.coordinates,
+                        lat: payload,
+                    },
+                },
+            };
+        case UPDATE_LONGITUDE_COORDINATE:
+            return {
+                ...state,
+                results: {
+                    ...state.results,
+                    coordinates: null,
+                },
+                search: {
+                    ...state.search,
+                    searchValue: initialState.search.searchValue,
+                    coordinates: {
+                        ...state.search.coordinates,
+                        lng: payload,
+                    },
+                },
+            };
+        case COMPLETE_SELECT_COORDINATES_FROM_GEOCODER:
+            return {
+                ...state,
+                results: {
+                    ...state.results,
+                    coordinates: payload,
+                },
+                search: {
+                    ...state.search,
+                    coordinates: payload,
+                },
+            };
         case START_SELECT_GEOCODER_SUGGESTION:
             return state;
         case FAIL_SELECT_GEOCODER_SUGGESTION:
@@ -73,6 +125,7 @@ export default function geocoderReducer(state = initialState, { type, payload })
                 search: {
                     ...state.search,
                     searchValue: payload,
+                    coordinates: initialState.search.coordinates,
                 },
             };
         case CLEAR_GEOCODER_SEARCH_INPUT:
@@ -86,6 +139,7 @@ export default function geocoderReducer(state = initialState, { type, payload })
                 search: {
                     ...state.search,
                     searchValue: initialState.search.searchValue,
+                    coordinates: initialState.search.coordinates,
                 },
             };
         case START_GEOCODER_AUTOCOMPLETE:

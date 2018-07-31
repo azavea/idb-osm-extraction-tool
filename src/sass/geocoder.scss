@@ -46,6 +46,16 @@
             width: 14rem;
             font-size: 1.3rem;
         }
+
+        > .coordinates {
+            display: flex;
+
+            > .coordinate {
+                height: 1.6rem;
+                width: 45%;
+                font-size: 1.4rem;
+            }
+        }
     }
 
     > .suggestions {

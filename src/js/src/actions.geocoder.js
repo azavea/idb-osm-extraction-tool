@@ -1,3 +1,5 @@
+import L from 'leaflet';
+
 import { suggest, geocode, filterSuggestions } from './utils';
 
 import { guyanaBBox } from './constants';
@@ -14,6 +16,11 @@ export const CLEAR_GEOCODER_SEARCH_INPUT = 'CLEAR_GEOCODER_SEARCH_INPUT';
 export const START_SELECT_GEOCODER_SUGGESTION = 'START_SELECT_GEOCODER_SUGGESTION';
 export const FAIL_SELECT_GEOCODER_SUGGESTION = 'FAIL_SELECT_GEOCODER_SUGGESTION';
 export const COMPLETE_SELECT_GEOCODER_SELECTION = 'COMPLETE_SELECT_GEOCODER_SUGGESTION';
+
+export const UPDATE_LATITUDE_COORDINATE = 'UPDATE_LATITUDE_COORDINATE';
+export const UPDATE_LONGITUDE_COORDINATE = 'UPDATE_LONGITUDE_COORDINATE';
+export const COMPLETE_SELECT_COORDINATES_FROM_GEOCODER = 'COMPLETE_SELECT_COORDINATES_FROM_GEOCODER';
+export const FAIL_SELECT_COORDINATES_FROM_GEOCODER = 'FAIL_SELECT_COORDINATES_FROM_GEOCODER';
 
 export function selectGeocoderSearchInput() {
     return {
@@ -120,5 +127,55 @@ export function selectGeocoderSuggestion(magicKey) {
 
                 return dispatch(completeSelectGeocoderSuggestion(results));
             });
+    };
+}
+
+export function updateLatitudeCoordinate(payload) {
+    return {
+        type: UPDATE_LATITUDE_COORDINATE,
+        payload,
+    };
+}
+
+export function updateLongitudeCoordinate(payload) {
+    return {
+        type: UPDATE_LONGITUDE_COORDINATE,
+        payload,
+    };
+}
+
+function failSelectCoordinatesFromGeocoder(e) {
+    window.console.warn(e);
+
+    return {
+        type: FAIL_SELECT_COORDINATES_FROM_GEOCODER,
+    };
+}
+
+function completeSelectCoordinatesFromGeocoder(payload) {
+    return {
+        type: COMPLETE_SELECT_COORDINATES_FROM_GEOCODER,
+        payload,
+    };
+}
+
+export function selectCoordinatesFromGeocoder() {
+    return (dispatch, getState) => {
+        const {
+            geocoder: {
+                search: {
+                    coordinates: {
+                        lat,
+                        lng,
+                    },
+                },
+            },
+        } = getState();
+
+        return Promise
+            .resolve()
+            .then(() => L.latLng(lat, lng))
+            .then(latLng => dispatch(completeSelectCoordinatesFromGeocoder(latLng)))
+            .catch(e => dispatch(failSelectCoordinatesFromGeocoder(e)));
     };
 }
