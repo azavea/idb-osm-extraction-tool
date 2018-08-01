@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, object, oneOf } from 'prop-types';
+import { bool, func, number, object, oneOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import {
     Map as ReactLeafletMap,
@@ -24,8 +24,12 @@ import {
     drawToolTypeEnum,
     areaOfInterestStyle,
     overpassDataStyle,
+    controlPositionsEnum,
+    geocoderInputTypeEnum,
+    geocoderSuggestionsPropType,
 } from '../constants';
 
+import OSMGeocoderControl from './OSMGeocoderControl';
 
 class OSMExtractionMap extends Component {
     constructor(props) {
@@ -60,17 +64,19 @@ class OSMExtractionMap extends Component {
         });
     }
 
-    componentDidUpdate({ drawingActive: drawingWasActive }) {
+    componentDidUpdate({
+        drawingActive: drawingWasActive,
+        geocoderSelection: previousGeocoderSelection,
+        selectedCoordinates: previouslySelectedCoordinates,
+    }) {
         const {
             drawTool,
             drawingActive,
+            geocoderSelection,
+            selectedCoordinates,
         } = this.props;
 
-        if (drawingActive === drawingWasActive) {
-            return null;
-        }
-
-        if (drawingActive) {
+        if (drawingActive && !drawingWasActive) {
             switch (drawTool) {
                 case drawToolTypeEnum.box:
                     this.rectangleDrawHandler.enable();
@@ -85,6 +91,28 @@ class OSMExtractionMap extends Component {
         } else {
             this.polygonDrawHandler.disable();
             this.rectangleDrawHandler.disable();
+        }
+
+        const zoomToBounds = geocoderSelection ?
+            () => this.leafletMap.leafletElement.fitBounds(geocoderSelection.bounds) :
+            null;
+
+        const zoomToPoint = selectedCoordinates ?
+            () => this.leafletMap.leafletElement.setView(selectedCoordinates) :
+            null;
+
+        if (!geocoderSelection && !selectedCoordinates) {
+            return null;
+        } else if (geocoderSelection && !previousGeocoderSelection) {
+            return zoomToBounds();
+        } else if (geocoderSelection && previousGeocoderSelection &&
+            (geocoderSelection.text !== previousGeocoderSelection.text)) {
+            return zoomToBounds();
+        } else if (selectedCoordinates && !previouslySelectedCoordinates) {
+            return zoomToPoint();
+        } else if (selectedCoordinates &&
+            (selectedCoordinates.toString() !== previouslySelectedCoordinates.toString())) {
+            return zoomToPoint();
         }
 
         return null;
@@ -104,6 +132,13 @@ class OSMExtractionMap extends Component {
         const {
             drawnShape,
             data,
+            activeGeocoderInput,
+            geocoderSearchValue,
+            geocoderSuggestions,
+            geocoderSelection,
+            geocoderCoordinatesLat,
+            geocoderCoordinatesLng,
+            dispatch,
         } = this.props;
 
         const areaOfInterest = drawnShape ? (
@@ -133,7 +168,17 @@ class OSMExtractionMap extends Component {
                     attribution={basemapAttribution}
                     maxZoom={basemapMaxZoom}
                 />
-                <ZoomControl position="topright" />
+                <ZoomControl position={controlPositionsEnum.topright} />
+                <OSMGeocoderControl
+                    position={controlPositionsEnum.topleft}
+                    activeInput={activeGeocoderInput}
+                    searchValue={geocoderSearchValue}
+                    suggestions={geocoderSuggestions}
+                    selection={geocoderSelection}
+                    lat={geocoderCoordinatesLat}
+                    lng={geocoderCoordinatesLng}
+                    dispatch={dispatch}
+                />
                 {areaOfInterest}
                 {overpassAPIData}
             </ReactLeafletMap>
@@ -145,6 +190,9 @@ OSMExtractionMap.defaultProps = {
     drawTool: null,
     drawnShape: null,
     data: null,
+    geocoderSuggestions: null,
+    geocoderSelection: null,
+    selectedCoordinates: null,
 };
 
 OSMExtractionMap.propTypes = {
@@ -153,6 +201,13 @@ OSMExtractionMap.propTypes = {
     drawnShape: object, // eslint-disable-line react/forbid-prop-types
     data: object, // eslint-disable-line react/forbid-prop-types
     drawingActive: bool.isRequired,
+    activeGeocoderInput: oneOf(Object.values(geocoderInputTypeEnum)).isRequired,
+    geocoderSearchValue: string.isRequired,
+    geocoderSuggestions: geocoderSuggestionsPropType,
+    geocoderSelection: object, // eslint-disable-line react/forbid-prop-types
+    selectedCoordinates: object, // eslint-disable-line react/forbid-prop-types
+    geocoderCoordinatesLat: oneOfType([number, string]).isRequired,
+    geocoderCoordinatesLng: oneOfType([number, string]).isRequired,
 };
 
 function mapStateToProps({
@@ -161,6 +216,21 @@ function mapStateToProps({
             drawTool,
             active: drawingActive,
             drawnShape,
+        },
+    },
+    geocoder: {
+        results: {
+            suggestions,
+            selection,
+            coordinates,
+        },
+        search: {
+            activeInput,
+            searchValue,
+            coordinates: {
+                lat,
+                lng,
+            },
         },
     },
     data: {
@@ -174,6 +244,13 @@ function mapStateToProps({
         drawingActive,
         drawnShape,
         data,
+        activeGeocoderInput: activeInput,
+        geocoderSearchValue: searchValue,
+        geocoderSuggestions: suggestions,
+        geocoderSelection: selection,
+        selectedCoordinates: coordinates,
+        geocoderCoordinatesLat: lat,
+        geocoderCoordinatesLng: lng,
     };
 }
 

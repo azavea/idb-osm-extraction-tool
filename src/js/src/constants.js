@@ -1,6 +1,9 @@
+import L from 'leaflet';
+import { arrayOf, bool, shape, string } from 'prop-types';
+
 export const basemapTilesUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 export const basemapAttribution =
-    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+    'Powered by <a href="https://esri.com">Esri</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 export const basemapMaxZoom = 19;
 
 export const initialMapCenter = [
@@ -76,3 +79,28 @@ export const overpassDataStyle = {
     fillOpacity: 1.0,
     radius: 5,
 };
+
+export const controlPositionsEnum = {
+    topright: 'topright',
+    topleft: 'topleft',
+    bottomright: 'bottomright',
+    bottomleft: 'bottomleft',
+};
+
+export const geocoderInputTypeEnum = {
+    search: 'search',
+    coordinates: 'coordinates',
+};
+
+export const geocoderSuggestionsPropType = arrayOf(shape({
+    text: string,
+    magicKey: string,
+    isCollection: bool,
+}));
+
+export const geocoderUrl = 'https://utility.arcgis.com/usrsvcs/appservices/6Ag9gwdkF9pH4nRm/rest/services/World/GeocodeServer/';
+
+export const guyanaBBox = L.latLngBounds(
+    L.latLng(1.26808828369, -56.5393857489),
+    L.latLng(8.36703481692, -61.4103029039),
+);

@@ -1,0 +1,74 @@
+.geocoder {
+    width: 20rem;
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+
+    > .header {
+        display: flex;
+        background-color: $turquoise;
+        height: 2rem;
+        justify-content: flex-start;
+
+        > .tab {
+            height: 100%;
+            width: 30%;
+            align-self: center;
+            font-weight: 700;
+            border: none;
+            background-color: $turquoise;
+            color: $white;
+
+            &.-on {
+                background-color: $highlight !important;
+            }
+        }
+    }
+
+    > .geocoder-input {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0.5rem;
+        height: 2rem;
+
+        > .button {
+            border: none;
+            background-color: $white;
+
+            > .icon {
+                font-size: 1.2rem;
+            }
+        }
+
+        > .input {
+            height: 1.5rem;
+            width: 14rem;
+            font-size: 1.3rem;
+        }
+
+        > .coordinates {
+            display: flex;
+
+            > .coordinate {
+                height: 1.6rem;
+                width: 45%;
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    > .suggestions {
+        display: flex;
+        flex-direction: column;
+
+        > .button {
+            background-color: $white;
+            border: none;
+            display: flex;
+            justify-content: left;
+            font-size: 1rem;
+            margin: 0.5rem;
+        }
+    }
+}

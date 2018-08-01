@@ -78,6 +78,10 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@esri/arcgis-to-geojson-utils@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@esri/arcgis-to-geojson-utils/-/arcgis-to-geojson-utils-1.3.0.tgz#79ab65bf3e40c039dbdebceff4b3b0ec088b189c"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2816,6 +2820,21 @@ esrecurse@^4.1.0:
   dependencies:
     estraverse "^4.1.0"
 
+esri-leaflet-geocoder@~2.2.13:
+  version "2.2.13"
+  resolved "https://registry.yarnpkg.com/esri-leaflet-geocoder/-/esri-leaflet-geocoder-2.2.13.tgz#b56660e6d27e6974adbe687f700892c9282dc45c"
+  dependencies:
+    esri-leaflet "^2.1.4"
+    leaflet "^1.0.0"
+
+esri-leaflet@^2.1.4:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.2.1.tgz#798d875ffeca8047d7fb4510f54b7bab2146ed84"
+  dependencies:
+    "@esri/arcgis-to-geojson-utils" "^1.3.0"
+    leaflet-virtual-grid "^1.0.7"
+    tiny-binary-search "^1.0.3"
+
 estraverse@^4.0.0, estraverse@^4.1.0, estraverse@^4.1.1:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"
@@ -4585,7 +4604,13 @@ leaflet-draw@~0.4.14:
   version "0.4.14"
   resolved "https://registry.yarnpkg.com/leaflet-draw/-/leaflet-draw-0.4.14.tgz#1b5b06d570873a015aa96b80d664dab496c45a4a"
 
-leaflet@~1.3.1:
+leaflet-virtual-grid@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/leaflet-virtual-grid/-/leaflet-virtual-grid-1.0.7.tgz#0dbb0dacd506b6e6d291314da5022d348729f8ad"
+  dependencies:
+    leaflet "^1.0.0"
+
+leaflet@^1.0.0, leaflet@~1.3.1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.3.tgz#5c8f2fd50e4a41ead93ab850dcd9e058811da9b9"
 
@@ -6204,7 +6229,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@~15.6.1:
+prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@~15.6.1:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -6373,6 +6398,12 @@ react-input-autosize@^2.1.2:
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"
   dependencies:
     prop-types "^15.5.8"
+
+react-leaflet-control@~1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-1.4.1.tgz#5da234621682d9c50657b65af042398512bda0fb"
+  dependencies:
+    prop-types "^15.5.7"
 
 react-leaflet@~1.9.1:
   version "1.9.1"
@@ -7624,6 +7655,10 @@ timers-browserify@^2.0.4:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.10.tgz#1d28e3d2aadf1d5a5996c4e9f95601cd053480ae"
   dependencies:
     setimmediate "^1.0.4"
+
+tiny-binary-search@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tiny-binary-search/-/tiny-binary-search-1.0.3.tgz#9d52e3d16dd1171eb74486caf704ba08c0c62186"
 
 tmp@^0.0.33:
   version "0.0.33"
