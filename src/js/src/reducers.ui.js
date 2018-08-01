@@ -5,6 +5,8 @@ import {
     COMPLETE_DRAWING,
     SELECT_DATE_RANGE,
     SELECT_FEATURES,
+    SHOW_MODAL,
+    HIDE_MODAL,
 } from './actions.ui';
 
 import { drawToolTypeEnum } from './constants';
@@ -19,10 +21,21 @@ const initialState = {
         dateRange: null,
         features: null,
     },
+    modalVisible: false,
 };
 
 export default function uiReducer(state = initialState, { type, payload }) {
     switch (type) {
+        case SHOW_MODAL:
+            return {
+                ...state,
+                modalVisible: true,
+            };
+        case HIDE_MODAL:
+            return {
+                ...state,
+                modalVisible: false,
+            };
         case START_DRAWING_BOX:
             return {
                 ...state,

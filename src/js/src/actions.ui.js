@@ -4,6 +4,8 @@ export const CANCEL_DRAWING = 'CANCEL_DRAWING';
 export const COMPLETE_DRAWING = 'COMPLETE_DRAWING';
 export const SELECT_DATE_RANGE = 'SELECT_DATE_RANGE';
 export const SELECT_FEATURES = 'SELECT_FEATURES';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 
 export function startDrawingBox() {
     return {
@@ -41,5 +43,17 @@ export function selectFeatures(payload) {
     return {
         type: SELECT_FEATURES,
         payload,
+    };
+}
+
+export function showModal() {
+    return {
+        type: SHOW_MODAL,
+    };
+}
+
+export function hideModal() {
+    return {
+        type: HIDE_MODAL,
     };
 }
