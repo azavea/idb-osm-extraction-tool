@@ -11,7 +11,7 @@
         height: 4rem;
         width: 100%;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
         align-items: center;
 
         > .title {
@@ -21,7 +21,7 @@
         > .info {
             &.button {
                 border: none;
-                background-color: unset;
+                background-color: transparent;
                 color: $white;
                 font-size: 1.2rem;
             }

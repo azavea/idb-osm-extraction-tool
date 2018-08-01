@@ -1,103 +1,109 @@
-.popup-content {
-    max-width: 50%;
-    max-height: 65%;
-    overflow-y: scroll;
+.popup-overlay {
+    z-index: 100;
+    > .popup-content {
+        max-width: 50%;
+        max-height: 65%;
+        overflow-y: scroll;
+        align-self: center;
 
-    > .info-modal {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
-
-        > .button {
-            &.-close {
-                border: none;
-                display: flex;
-                align-self: flex-end;
-                font-size: 1.2rem;
-            }
-
-            &.-back {
-                border: none;
-                background-color: $turquoise;
-                height: 4rem;
-                width: 18rem;
-                font-size: 1.2rem;
-                color: $white;
-                text-transform: uppercase;
-            }
-        }
-
-        > .header {
-            font-weight: 700;
-            padding: 1rem;
-        }
-
-        > .description {
-            padding: 1rem;
-            width: 80%;
-        }
-
-        > .instructions {
+        > .info-modal {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 85%;
+            padding: 2rem;
+
+            > .button {
+                &.-close {
+                    border: none;
+                    background-color: transparent;
+                    display: flex;
+                    align-self: flex-end;
+                    font-size: 1.2rem;
+                }
+
+                &.-back {
+                    border: none;
+                    background-color: $turquoise;
+                    height: 4rem;
+                    width: 18rem;
+                    font-size: 1.2rem;
+                    color: $white;
+                    text-transform: uppercase;
+                }
+            }
 
             > .header {
                 font-weight: 700;
-                text-transform: uppercase;
+                padding: 1rem;
             }
 
-            > .list {
-                list-style: none;
-                padding: 0.5rem;
+            > .description {
+                padding: 1rem;
+                width: 80%;
+            }
 
-                > .item {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: flex-start;
+            > .instructions {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 85%;
+
+                > .header {
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+
+                > .list {
+                    list-style: none;
                     padding: 0.5rem;
+                    width: 100%;
 
-                    > .number {
-                        background-color: $lightgray;
-                        padding: 0.5rem;
-                        margin-right: 1rem;
-
-                        > .fa-ban {
-                            color: red;
-                        }
-                    }
-
-                    > .text {
+                    > .item {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: flex-start;
                         padding: 0.5rem;
 
-                        > .header {
-                            font-weight: 700;
-                            padding-bottom: 0.5rem;
+                        > .number {
+                            background-color: $lightgray;
+                            padding: 0.5rem;
+                            margin-right: 1rem;
 
-                            > .optional {
-                                font-weight: 400;
+                            > .fa-ban {
+                                color: red;
                             }
                         }
 
-                        > .description {
-                            a:link,
-                            a:visited,
-                            a:hover,
-                            a:active {
-                                color: $black;
+                        > .text {
+                            padding: 0.5rem;
+
+                            > .header {
+                                font-weight: 700;
+                                padding-bottom: 0.5rem;
+
+                                > .optional {
+                                    font-weight: 400;
+                                }
                             }
 
-                            > .link {
-                                display: inline-flex;
-                                text-decoration-color: $yellow;
+                            > .description {
+                                a:link,
+                                a:visited,
+                                a:hover,
+                                a:active {
+                                    color: $black;
+                                }
 
-                                > .fa-external-link-square-alt {
-                                    color: $yellow;
-                                    padding-left: 0.5rem;
-                                    text-decoration: underline;
+                                > .link {
+                                    display: inline-flex;
                                     text-decoration-color: $yellow;
+
+                                    > .fa-external-link-square-alt {
+                                        color: $yellow;
+                                        padding-left: 0.5rem;
+                                        text-decoration: underline;
+                                        text-decoration-color: $yellow;
+                                    }
                                 }
                             }
                         }
