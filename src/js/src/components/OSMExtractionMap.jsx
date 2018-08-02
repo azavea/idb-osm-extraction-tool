@@ -31,11 +31,14 @@ import {
 
 import OSMGeocoderControl from './OSMGeocoderControl';
 
+const PRECLICK = 'preclick';
+
 class OSMExtractionMap extends Component {
     constructor(props) {
         super(props);
         this.handleDrawAreaOfInterest = this.handleDrawAreaOfInterest.bind(this);
         this.handleCancelDrawing = this.handleCancelDrawing.bind(this);
+        this.disableRectangleTwoClickDrawing = this.disableRectangleTwoClickDrawing.bind(this);
     }
 
     componentDidMount() {
@@ -55,9 +58,17 @@ class OSMExtractionMap extends Component {
             this.handleDrawAreaOfInterest,
         );
 
+        leafletElement.on(
+            PRECLICK,
+            this.disableRectangleTwoClickDrawing,
+        );
+
         this.rectangleDrawHandler = new L.Draw.Rectangle(leafletElement, {
             shapeOptions: areaOfInterestStyle,
         });
+
+        this.rectangleDrawHandler._initialLabelText = // eslint-disable-line no-underscore-dangle
+            'Click and hold the mouse button down then drag to draw a rectangle.';
 
         this.polygonDrawHandler = new L.Draw.Polygon(leafletElement, {
             shapeOptions: areaOfInterestStyle,
@@ -116,6 +127,19 @@ class OSMExtractionMap extends Component {
         }
 
         return null;
+    }
+
+    disableRectangleTwoClickDrawing() {
+        /* eslint-disable no-underscore-dangle */
+        if (!this.rectangleDrawHandler._enabled ||
+            !this.rectangleDrawHandler._isCurrentlyTwoClickDrawing) {
+            return null;
+        }
+        /* eslint-enable no-underscore-dangle */
+
+        this.rectangleDrawHandler.disable();
+
+        return this.handleCancelDrawing();
     }
 
     handleDrawAreaOfInterest({ layer }) {
