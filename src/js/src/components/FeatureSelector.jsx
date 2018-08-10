@@ -19,6 +19,7 @@ function FeatureSelector({
                 Feature
             </div>
             <Select
+                classNamePrefix="react-select"
                 name="feature-selector"
                 onChange={handleSelectFeaturesChange}
                 value={features}

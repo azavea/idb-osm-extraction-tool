@@ -19,6 +19,7 @@ function DateRangeSelector({
                 Date range
             </div>
             <Select
+                classNamePrefix="react-select"
                 name="date-range-selector"
                 onChange={handleSelectDateRange}
                 value={dateRange}

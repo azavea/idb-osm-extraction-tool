@@ -64,23 +64,16 @@ export default function OSMGeocoderControl({
 
     const inputs = activeInput === geocoderInputTypeEnum.search ? (
         <div className="geocoder-input">
-            <button
-                className="button"
-                onClick={() => window.console.log('click')}
-            >
-                <i className="fas fa-search icon" />
-            </button>
             <input
                 type="text"
                 className="input"
-                placeholder={activeInput}
                 value={selection ? selection.text : searchValue}
                 onChange={
                     ({ target: { value } }) => dispatch(updateGeocoderSearchInput(value))
                 }
             />
             <button
-                className="button"
+                className="button -clear"
                 onClick={() => dispatch(clearGeocoderSearchInput())}
             >
                 <i className="fas fa-times icon" />
@@ -111,7 +104,7 @@ export default function OSMGeocoderControl({
                 />
             </div>
             <button
-                className="button"
+                className="button -search"
                 onClick={() => dispatch(selectCoordinatesFromGeocoder())}
             >
                 <i className="fas fa-search icon" />

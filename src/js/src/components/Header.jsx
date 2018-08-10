@@ -16,6 +16,9 @@ function Header({
 }) {
     return (
         <div className="header">
+            <div className="logo">
+                <img src="/images/logo-chpa.png" alt="CH&PA logo" />
+            </div>
             <h3 className="title">
                 OSM EXTRACTION TOOL
             </h3>
