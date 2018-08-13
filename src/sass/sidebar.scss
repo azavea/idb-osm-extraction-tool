@@ -134,10 +134,6 @@
             font-weight: $font-weight-normal;
             font-size: 0.85rem;
 
-            .react-select__option {
-                background: $yellow!important;
-            }
-
             > .label {
                 margin-bottom: 0.75rem;
                 font-size: 0.85rem;
@@ -198,5 +194,11 @@
                 }
             }
         }
+    }
+}
+
+.Select-option {
+    &.is-focused {
+        background: $lightyellow;
     }
 }

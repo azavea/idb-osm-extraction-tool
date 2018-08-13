@@ -6,14 +6,18 @@ import { makeOverpassAPIRequest } from '../actions.data';
 
 function ExtractButton({
     dispatch,
-    fetching,
+    disabled,
 }) {
+    const buttonClassName = disabled ?
+        'button -extract -disabled' :
+        'button -extract';
+
     return (
         <button
-            className="button -extract"
+            className={buttonClassName}
             type="button"
             onClick={() => dispatch(makeOverpassAPIRequest())}
-            disabled={fetching}
+            disabled={disabled}
         >
             EXTRACT
         </button>
@@ -22,7 +26,7 @@ function ExtractButton({
 
 ExtractButton.propTypes = {
     dispatch: func.isRequired,
-    fetching: bool.isRequired,
+    disabled: bool.isRequired,
 };
 
 function mapStateToProps({
@@ -31,9 +35,14 @@ function mapStateToProps({
             fetching,
         },
     },
+    ui: {
+        drawing: {
+            drawnShape,
+        },
+    },
 }) {
     return {
-        fetching,
+        disabled: fetching || !drawnShape,
     };
 }
 
