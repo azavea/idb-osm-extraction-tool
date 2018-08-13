@@ -2,6 +2,9 @@ import React from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
 
+import idbLogo from '../../../images/logo-idb-full.png';
+import chpaLogo from '../../../images/logo-chpa-red.png';
+
 import { hideModal } from '../actions.ui';
 
 const listItems = [
@@ -102,10 +105,10 @@ function InfoModal({
             </div>
             <div className="logos">
                 <div className="logo -idb">
-                    <img src="/images/logo-idb-full.png" alt="Inter-American Development Bank logo" />
+                    <img src={idbLogo} alt="Inter-American Development Bank logo" />
                 </div>
                 <div className="logo -chpa">
-                    <img src="/images/logo-chpa-red.png" alt="CH&PA logo" />
+                    <img src={chpaLogo} alt="CH&PA logo" />
                 </div>
             </div>
             <div className="instructions">

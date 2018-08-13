@@ -10,6 +10,8 @@ import {
 
 import InfoModal from './InfoModal';
 
+import logoCHPA from '../../../images/logo-chpa.png';
+
 function Header({
     dispatch,
     modalVisible,
@@ -17,7 +19,7 @@ function Header({
     return (
         <div className="header">
             <div className="logo">
-                <img src="/images/logo-chpa.png" alt="CH&PA logo" />
+                <img src={logoCHPA} alt="CH&PA logo" />
             </div>
             <h3 className="title">
                 OSM EXTRACTION TOOL
