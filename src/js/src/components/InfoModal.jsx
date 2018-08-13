@@ -100,6 +100,14 @@ function InfoModal({
                 The OSM Extraction Tool was created by the Inter-American
                 Development Bank in partnership with CH&PA in Guyana.
             </div>
+            <div className="logos">
+                <div className="logo -idb">
+                    <img src="/images/logo-idb-full.png" alt="Inter-American Development Bank logo" />
+                </div>
+                <div className="logo -chpa">
+                    <img src="/images/logo-chpa-red.png" alt="CH&PA logo" />
+                </div>
+            </div>
             <div className="instructions">
                 <div className="header">
                     How to use

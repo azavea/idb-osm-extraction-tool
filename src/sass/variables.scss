@@ -1,9 +1,24 @@
 // Colors
+$lightturquoise: #21A3A8;
 $turquoise: #0A393C;
 $highlight: #0E494C;
 $yellow: #DFB059;
+$lightyellow: #F3CF69;
 $white: #FFFFFF;
 $lightgray: #F0EDEE;
+$mediumgray: #E8E6E4;
+$darkmediumgray: #C5CACF;
 $darkgray: #384651;
+$lighttaupe: #EAE8E8;
 $black: #0A090C;
-$buttongray: #DFE0E3;
+$buttongray: $darkmediumgray;
+
+// Helpers
+$border-radius: 2px;
+$gradient: linear-gradient(-135.29997516230392deg, $highlight 0%, $turquoise 50%);
+$sidebar-gradient: linear-gradient(-41.18592516570965deg, $lightgray 0%, $white 100%);;
+
+// Typography
+$font-family: 'Montserrat', sans-serif;
+$font-weight-bold: 700;
+$font-weight-normal: 500;

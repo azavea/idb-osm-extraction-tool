@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { bool, func, oneOf } from 'prop-types';
 import { connect } from 'react-redux';
+import boxIcon from '../../../images/icon-drag.svg';
+import polygonIcon from '../../../images/icon-polygon.svg';
 
 import {
     startDrawingBox,
@@ -16,10 +18,10 @@ function DrawTools({
     active,
     boundariesConfirmed,
 }) {
-    const drawBoxIcon = <i className="far fa-square" />;
-    const drawShapeIcon = <i className="far fa-star" />;
-    const cancelIcon = <i className="far fa-times-circle" />;
-    const checkmarkIcon = <i className="fas fa-check" />;
+    const drawBoxIcon = <img src={boxIcon} className="icon" alt="something icon" />;
+    const drawShapeIcon = <img src={polygonIcon} className="icon" alt="something icon" />;
+    const cancelIcon = <i className="icon far fa-times-circle" />;
+    const checkmarkIcon = <i className="icon fas fa-check" />;
 
     const buttons = (() => {
         if (boundariesConfirmed) {
