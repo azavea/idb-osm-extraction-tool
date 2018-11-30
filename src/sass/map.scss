@@ -29,6 +29,25 @@
                     font-size: 18px;
                 }
             }
+
+            > .leaflet-control {
+                > .logo {
+                    font-family: $font-family;
+                    height: auto;
+                    margin: 0 1rem;
+                    width: 100%;
+
+                    &.-idb {
+                        width: 6rem;
+                    }
+
+                    > a {
+                        > img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
         }
     }
 }

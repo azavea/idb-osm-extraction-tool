@@ -30,6 +30,7 @@ import {
 } from '../constants';
 
 import OSMGeocoderControl from './OSMGeocoderControl';
+import SponsoredByControl from './SponseredByControl';
 
 const PRECLICK = 'preclick';
 
@@ -203,6 +204,7 @@ class OSMExtractionMap extends Component {
                     lng={geocoderCoordinatesLng}
                     dispatch={dispatch}
                 />
+                <SponsoredByControl position={controlPositionsEnum.bottomright} />
                 {areaOfInterest}
                 {overpassAPIData}
             </ReactLeafletMap>
