@@ -30,6 +30,8 @@ import {
 } from '../constants';
 
 import OSMGeocoderControl from './OSMGeocoderControl';
+import SponsoredByControl from './SponsoredByControl';
+import SomethingWrongControl from './SomethingWrongControl';
 
 const PRECLICK = 'preclick';
 
@@ -39,6 +41,7 @@ class OSMExtractionMap extends Component {
         this.handleDrawAreaOfInterest = this.handleDrawAreaOfInterest.bind(this);
         this.handleCancelDrawing = this.handleCancelDrawing.bind(this);
         this.disableRectangleTwoClickDrawing = this.disableRectangleTwoClickDrawing.bind(this);
+        this.getZoomAndCenter = this.getZoomAndCenter.bind(this);
     }
 
     componentDidMount() {
@@ -129,6 +132,14 @@ class OSMExtractionMap extends Component {
         return null;
     }
 
+    getZoomAndCenter() {
+        const map = this.leafletMap.leafletElement;
+        return {
+            zoom: map.getZoom(),
+            center: map.getCenter(),
+        };
+    }
+
     disableRectangleTwoClickDrawing() {
         /* eslint-disable no-underscore-dangle */
         if (!this.rectangleDrawHandler._enabled ||
@@ -202,6 +213,11 @@ class OSMExtractionMap extends Component {
                     lat={geocoderCoordinatesLat}
                     lng={geocoderCoordinatesLng}
                     dispatch={dispatch}
+                />
+                <SponsoredByControl position={controlPositionsEnum.bottomright} />
+                <SomethingWrongControl
+                    position={controlPositionsEnum.bottomleft}
+                    getZoomAndCenter={this.getZoomAndCenter}
                 />
                 {areaOfInterest}
                 {overpassAPIData}

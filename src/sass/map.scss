@@ -4,6 +4,24 @@
     z-index: 50;
 
     > .leaflet-control-container {
+        > .leaflet-left {
+            > .leaflet-control {
+                > .something-wrong {
+                    font-family: $font-family;
+                    background-color: $white;
+                    padding: 10px 14px;
+                    border-radius: 15px;
+                    margin: 18px 5px;
+
+                    > button {
+                      border: none;
+                      background: none;
+                      text-decoration: underline;
+                      cursor: pointer;
+                    }
+                }
+            }
+        }
         > .leaflet-right {
             > .leaflet-control-zoom {
                 border: none;
@@ -27,6 +45,25 @@
                     justify-content: center;
                     display: flex;
                     font-size: 18px;
+                }
+            }
+
+            > .leaflet-control {
+                > .logo {
+                    font-family: $font-family;
+                    height: auto;
+                    margin: 0 1rem;
+                    width: 100%;
+
+                    &.-idb {
+                        width: 6rem;
+                    }
+
+                    > a {
+                        > img {
+                            width: 100%;
+                        }
+                    }
                 }
             }
         }
