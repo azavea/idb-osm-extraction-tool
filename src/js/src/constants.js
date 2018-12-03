@@ -7,11 +7,12 @@ export const basemapAttribution =
 export const basemapMaxZoom = 19;
 
 export const osmUrl = 'https://www.openstreetmap.org/edit?editor=id#map=';
+
 export const initialMapCenter = [
-    4.8604,
-    -58.9302,
+    6.7922,
+    -58.1127,
 ];
-export const initialMapZoom = 7;
+export const initialMapZoom = 13;
 
 export const drawToolTypeEnum = {
     box: 'box',
