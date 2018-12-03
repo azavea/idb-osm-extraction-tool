@@ -5,11 +5,11 @@ import { oneOf } from 'prop-types';
 import { controlPositionsEnum } from '../constants';
 import idbLogo from '../../../images/logo-idb-full.png';
 
-export default function SponseredByControl({ position }) {
+export default function SponsoredByControl({ position }) {
     return (
         <Control position={position}>
             <div className="logo -idb">
-                <div>sponsered by</div>
+                <div>sponsored by</div>
                 <a href="https://www.iadb.org/" target="_blank" rel="noopener noreferrer">
                     <img src={idbLogo} alt="Inter-American Development Bank logo" />
                 </a>
@@ -18,6 +18,6 @@ export default function SponseredByControl({ position }) {
     );
 }
 
-SponseredByControl.propTypes = {
+SponsoredByControl.propTypes = {
     position: oneOf(Object.values(controlPositionsEnum)).isRequired,
 };

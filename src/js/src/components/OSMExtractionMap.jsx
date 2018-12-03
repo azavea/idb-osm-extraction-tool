@@ -30,7 +30,7 @@ import {
 } from '../constants';
 
 import OSMGeocoderControl from './OSMGeocoderControl';
-import SponsoredByControl from './SponseredByControl';
+import SponsoredByControl from './SponsoredByControl';
 import SomethingWrongControl from './SomethingWrongControl';
 
 const PRECLICK = 'preclick';
