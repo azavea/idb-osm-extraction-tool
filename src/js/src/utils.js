@@ -72,17 +72,19 @@ function createShapefileName(/* dateRange */_, feature) {
  * @returns {object} Unmodified input geojson to use function in Promise chain
  */
 export function downloadShapefile(geojson, dateRange, feature) {
-    const folder = createShapefileName(dateRange, feature);
+    if (geojson.features.length) {
+        const folder = createShapefileName(dateRange, feature);
 
-    shpwrite.download(geojson, {
-        file: folder,
-        folder,
-        types: {
-            point: feature,
-            polygon: feature,
-            line: feature,
-        },
-    });
+        shpwrite.download(geojson, {
+            file: folder,
+            folder,
+            types: {
+                point: feature,
+                polygon: feature,
+                line: feature,
+            },
+        });
+    }
 
     return geojson;
 }
