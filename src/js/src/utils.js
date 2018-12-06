@@ -1,7 +1,7 @@
 import shpwrite from 'shp-write';
 import * as esriGeocoder from 'esri-leaflet-geocoder';
 
-import { geocoderUrl } from './constants';
+import { featureConfig, geocoderUrl } from './constants';
 
 function convertGeoJSONGeometryToOverPassGeometry({
     geometry: {
@@ -17,51 +17,70 @@ function convertGeoJSONGeometryToOverPassGeometry({
     return `(poly: "${lineString}")`;
 }
 
-function createFormDataWithGeometry(shape) {
+function createFormDataWithGeometry(shape, feature) {
     const bbox = convertGeoJSONGeometryToOverPassGeometry(shape);
+
+    const osmEntities = featureConfig
+        .filter(({ label }) => label === feature)
+        .pop()
+        .entities;
+
+    const overpassQuery = osmEntities.map(({ tag, values }) => {
+        if (values) {
+            return values.map(value => `
+                node["${tag}"="${value}"]${bbox};
+                way["${tag}"="${value}"]${bbox};
+                relation["${tag}"="${value}"]${bbox};
+            `).join('');
+        }
+        return `
+            node["${tag}"]${bbox};
+            way["${tag}"]${bbox};
+            relation["${tag}"]${bbox};
+        `;
+    });
 
     return `
 [out:json];
 (
-    node["building"]${bbox};
-    way["building"]${bbox};
-    relation["building"]${bbox};
+    ${overpassQuery.join('')}
 );
+(._;>;);
 out;
 `;
 }
 
-export function createOverpassAPIRequestFormData(drawnShape) {
-    return createFormDataWithGeometry(drawnShape);
+export function createOverpassAPIRequestFormData(drawnShape, dateRange, features) {
+    return createFormDataWithGeometry(drawnShape, features);
 }
 
 /**
  * Create Shapefile name from selected date range and features
  * @param {string} dateRange The selected date range
- * @param {string} features The selected features
+ * @param {string} feature The selected features
  * @returns {string} A filename
  */
-function createShapefileName(/* dateRange */_, features) {
-    return features;
+function createShapefileName(/* dateRange */_, feature) {
+    return feature;
 }
 
 /**
  * Download `geojson` as a Shapefile
  * @param {object} geojson The geojson to download
  * @param {string} dateRange The selected value from `dateRangeOptions`
- * @param {string} features The selected values from `featureOptions`
+ * @param {string} feature The selected values from `featureOptions`
  * @returns {object} Unmodified input geojson to use function in Promise chain
  */
-export function downloadShapefile(geojson, dateRange, features = 'buildings') {
-    const folder = createShapefileName(dateRange, features);
+export function downloadShapefile(geojson, dateRange, feature) {
+    const folder = createShapefileName(dateRange, feature);
 
     shpwrite.download(geojson, {
         file: folder,
         folder,
         types: {
-            point: features,
-            polygon: features,
-            line: features,
+            point: feature,
+            polygon: feature,
+            line: feature,
         },
     });
 
