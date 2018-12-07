@@ -71,7 +71,7 @@ export function makeOverpassAPIRequest() {
             },
         })
             .then(({ data }) => osmtogeojson(data))
-            .then(data => downloadShapefile(data))
+            .then(data => downloadShapefile(data, dateRange, features))
             .then(data => dispatch(completeOverpassRequest(data)))
             .catch(e => dispatch(failOverpassRequest(e)));
     };

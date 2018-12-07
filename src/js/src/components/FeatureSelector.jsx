@@ -5,14 +5,14 @@ import Select from 'react-select';
 
 import { selectFeatures } from '../actions.ui';
 
-import { featureOptions } from '../constants';
+import { featureConfig } from '../constants';
 
 function FeatureSelector({
     features,
     dispatch,
 }) {
     const handleSelectFeaturesChange = ({ value }) => dispatch(selectFeatures(value));
-
+    const options = featureConfig.map(({ label }) => ({ label, value: label }));
     return (
         <div className="select -feature">
             <div className="label">
@@ -23,7 +23,7 @@ function FeatureSelector({
                 name="feature-selector"
                 onChange={handleSelectFeaturesChange}
                 value={features}
-                options={featureOptions}
+                options={options}
                 clearable={false}
                 placeholder="Select a feature to extract..."
             />
@@ -36,7 +36,7 @@ FeatureSelector.defaultProps = {
 };
 
 FeatureSelector.propTypes = {
-    features: oneOf(featureOptions.map(({ value }) => value)),
+    features: oneOf(featureConfig.map(({ label }) => label)),
     dispatch: func.isRequired,
 };
 

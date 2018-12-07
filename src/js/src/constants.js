@@ -1,6 +1,8 @@
 import L from 'leaflet';
 import { arrayOf, bool, shape, string } from 'prop-types';
 
+export { default as featureConfig } from './featureConfig';
+
 export const basemapTilesUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 export const basemapAttribution =
     'Powered by <a href="https://esri.com">Esri</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -25,33 +27,6 @@ export const areaOfInterestStyle = {
     opacity: 1.0,
     weight: 3,
 };
-
-export const featureOptions = [
-    {
-        value: 'buildings',
-        label: 'Buildings',
-    },
-    {
-        value: 'emergencyInfraStructure',
-        label: 'Emergency infrastructure',
-    },
-    {
-        value: 'powerInfrastructure',
-        label: 'Power infrastructure',
-    },
-    {
-        value: 'roads',
-        label: 'Roads',
-    },
-    {
-        value: 'waterways',
-        label: 'Waterways',
-    },
-    {
-        value: 'airports',
-        label: 'Airports',
-    },
-];
 
 export const dateRangeOptions = [
     {
