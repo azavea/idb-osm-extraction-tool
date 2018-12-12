@@ -2,7 +2,7 @@
   "name": "idb-osm-extraction-tool",
   "version": "0.0.0",
   "description": "",
-  "private": true,
+  "license": "See license in LICENSE.md",
   "main": "main.js",
   "scripts": {
     "bundle": "rm -rf ../dist/* && webpack --config webpack.prod.config.js --colors && echo $VERSION > ../dist/version.txt",
