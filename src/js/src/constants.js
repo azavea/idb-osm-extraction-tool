@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { arrayOf, bool, shape, string } from 'prop-types';
+import moment from 'moment';
 
 export { default as featureConfig } from './featureConfig';
 
@@ -28,24 +29,41 @@ export const areaOfInterestStyle = {
     weight: 3,
 };
 
-export const dateRangeOptions = [
-    {
+// Unfortunately, moment's built-in .toISOString method isn't formatted in the
+// way the Overpass API expects -- so we format it here.
+const overpassDateFormat = 'YYYY-MM-DDThh:mm:ss';
+
+export const dateRangeOptions = Object.freeze([
+    Object.freeze({
         value: 'all',
         label: 'All',
-    },
-    {
+        dateSelection: null,
+    }),
+    Object.freeze({
         value: 'pastMonth',
         label: 'Past month',
-    },
-    {
+        dateSelection: moment()
+            .subtract(1, 'months')
+            .format(overpassDateFormat)
+            .concat('Z'),
+    }),
+    Object.freeze({
         value: 'pastThreeMonths',
         label: 'Past 3 months',
-    },
-    {
+        dateSelection: moment()
+            .subtract(3, 'months')
+            .format(overpassDateFormat)
+            .concat('Z'),
+    }),
+    Object.freeze({
         value: 'pastYear',
         label: 'Past year',
-    },
-];
+        dateSelection: moment()
+            .subtract(1, 'years')
+            .format(overpassDateFormat)
+            .concat('Z'),
+    }),
+]);
 
 export const overpassAPIurl = 'https://overpass-api.de/api/interpreter';
 

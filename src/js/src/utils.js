@@ -1,7 +1,7 @@
 import shpwrite from 'shp-write';
 import * as esriGeocoder from 'esri-leaflet-geocoder';
 
-import { featureConfig, geocoderUrl } from './constants';
+import { featureConfig, geocoderUrl, dateRangeOptions } from './constants';
 
 function convertGeoJSONGeometryToOverPassGeometry({
     geometry: {
@@ -17,27 +17,62 @@ function convertGeoJSONGeometryToOverPassGeometry({
     return `(poly: "${lineString}")`;
 }
 
-function createFormDataWithGeometry(shape, feature) {
+const createOverpassQueryElement = bbox => tag =>
+    `
+    node["${tag}"]${bbox};
+    way["${tag}"]${bbox};
+    relation["${tag}"]${bbox};
+    `;
+
+const createOverpassValueQueryElement = bbox => (tag, value) =>
+    `
+    node["${tag}"="${value}"]${bbox};
+    way["${tag}"="${value}"]${bbox};
+    relation["${tag}"="${value}"]${bbox};
+    `;
+
+const createOverpassDateQueryElement = (bbox, dateSelection) => tag =>
+    `
+    node["${tag}"]${bbox}(newer:"${dateSelection}");
+    way["${tag}"]${bbox}(newer:"${dateSelection}");
+    relation["${tag}"]${bbox}(newer:"${dateSelection}");
+    `;
+
+const createOverpassDateValueQueryElement = (bbox, dateSelection) => (tag, value) =>
+    `
+    node["${tag}"="${value}"]${bbox}(newer:"${dateSelection}");
+    way["${tag}"="${value}"]${bbox}(newer:"${dateSelection}");
+    relation["${tag}"="${value}"]${bbox}(newer:"${dateSelection}");
+    `;
+
+function createFormDataWithGeometry(shape, dateRange, feature) {
     const bbox = convertGeoJSONGeometryToOverPassGeometry(shape);
+
+    const { dateSelection } = dateRange
+        ? dateRangeOptions.find(({ value }) => value === dateRange)
+        : { dateSelection: null };
 
     const osmEntities = featureConfig
         .filter(({ label }) => label === feature)
         .pop()
         .entities;
 
+    const createOverpassQueryString = dateSelection
+        ? createOverpassDateQueryElement(bbox, dateSelection)
+        : createOverpassQueryElement(bbox);
+
+    const createOverpassValueQueryString = dateSelection
+        ? createOverpassDateValueQueryElement(bbox, dateSelection)
+        : createOverpassValueQueryElement(bbox);
+
     const overpassQuery = osmEntities.map(({ tag, values }) => {
         if (values) {
-            return values.map(value => `
-                node["${tag}"="${value}"]${bbox};
-                way["${tag}"="${value}"]${bbox};
-                relation["${tag}"="${value}"]${bbox};
-            `).join('');
+            return values
+                .map(value => createOverpassValueQueryString(tag, value))
+                .join('');
         }
-        return `
-            node["${tag}"]${bbox};
-            way["${tag}"]${bbox};
-            relation["${tag}"]${bbox};
-        `;
+
+        return createOverpassQueryString(tag);
     });
 
     return `
@@ -51,17 +86,26 @@ out;
 }
 
 export function createOverpassAPIRequestFormData(drawnShape, dateRange, features) {
-    return createFormDataWithGeometry(drawnShape, features);
+    return createFormDataWithGeometry(drawnShape, dateRange, features);
 }
 
 /**
  * Create Shapefile name from selected date range and features
- * @param {string} dateRange The selected date range
  * @param {string} feature The selected features
+ * @param {string} dateRange The selected date range
  * @returns {string} A filename
  */
-function createShapefileName(/* dateRange */_, feature) {
-    return feature;
+function createShapefileName(feature, dateRange = null) {
+    if (!dateRange) {
+        return feature;
+    }
+
+    const { dateSelection } = dateRangeOptions
+        .find(({ value }) => value === dateRange);
+
+    return dateSelection
+        ? `${feature}-since-${dateSelection}`
+        : feature;
 }
 
 /**
@@ -73,7 +117,7 @@ function createShapefileName(/* dateRange */_, feature) {
  */
 export function downloadShapefile(geojson, dateRange, feature) {
     if (geojson.features.length) {
-        const folder = createShapefileName(dateRange, feature);
+        const folder = createShapefileName(feature, dateRange);
 
         shpwrite.download(geojson, {
             file: folder,
