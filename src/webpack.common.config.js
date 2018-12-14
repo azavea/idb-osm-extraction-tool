@@ -110,6 +110,7 @@ module.exports = {
         disableHostCheck: true,
         historyApiFallback: {
             index: '/',
-        }
+        },
+        clientLogLevel: 'warning',
     },
 };
