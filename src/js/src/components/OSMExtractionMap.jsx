@@ -188,6 +188,17 @@ class OSMExtractionMap extends Component {
                 pointToLayer={
                     (_, latLng) => L.circleMarker(latLng, overpassDataStyle)
                 }
+                onEachFeature={
+                    (feature, layer) => {
+                        if (feature.properties) {
+                            const rows = Object
+                                .entries(feature.properties)
+                                .map(([key, value]) => `<tr><td>${key}</td><td>${value}</td></tr>`);
+
+                            layer.bindPopup(`<div><table>${rows}</table></div>`);
+                        }
+                    }
+                }
             />) : null;
 
         return (
