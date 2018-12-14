@@ -54,6 +54,10 @@ export function makeOverpassAPIRequest() {
             return dispatch(failOverpassRequest('no drawn shape'));
         }
 
+        if (!features) {
+            return dispatch(failOverpassRequest('no features selected'));
+        }
+
         const requestData = createOverpassAPIRequestFormData(
             drawnShape,
             dateRange,

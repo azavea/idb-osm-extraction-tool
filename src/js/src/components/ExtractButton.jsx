@@ -39,10 +39,13 @@ function mapStateToProps({
         drawing: {
             drawnShape,
         },
+        filters: {
+            features,
+        },
     },
 }) {
     return {
-        disabled: fetching || !drawnShape,
+        disabled: fetching || !drawnShape || !features,
     };
 }
 
