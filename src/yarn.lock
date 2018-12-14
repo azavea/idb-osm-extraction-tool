@@ -7178,9 +7178,9 @@ shelljs@^0.8.0:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-"shp-write@github:azavea/shp-write#ki/add-ie-support":
+"shp-write@github:azavea/shp-write#ki/patch-shape-parsing":
   version "0.3.2"
-  resolved "https://codeload.github.com/azavea/shp-write/tar.gz/52628e436d2cbdab423dec4c251c614e5e177c91"
+  resolved "https://codeload.github.com/azavea/shp-write/tar.gz/239d279728210a6328cd6e506afb5fcf040a8de3"
   dependencies:
     dbf "0.1.4"
     file-saver "1.3.8"
