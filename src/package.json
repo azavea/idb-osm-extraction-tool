@@ -1,6 +1,6 @@
 {
   "name": "idb-osm-extraction-tool",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "",
   "license": "See license in LICENSE.md",
   "main": "main.js",
@@ -42,7 +42,7 @@
     "redux": "~3.7.2",
     "redux-logger": "~3.0.6",
     "redux-thunk": "~2.2.0",
-    "shp-write": "github:azavea/shp-write#ki/add-ie-support"
+    "shp-write": "github:azavea/shp-write#ki/patch-shape-parsing"
   },
   "devDependencies": {
     "autoprefixer": "~8.2.0",
