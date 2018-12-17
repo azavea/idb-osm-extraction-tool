@@ -123,9 +123,10 @@ export function downloadShapefile(geojson, dateRange, feature) {
             file: folder,
             folder,
             types: {
-                point: feature,
-                polygon: feature,
-                line: feature,
+                point: `${feature}-point`,
+                polygon: `${feature}-polygon`,
+                line: `${feature}-line`,
+                polyline: `${feature}-polyline`,
             },
         });
     }
