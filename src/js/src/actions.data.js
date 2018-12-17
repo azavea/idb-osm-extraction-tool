@@ -54,6 +54,10 @@ export function makeOverpassAPIRequest() {
             return dispatch(failOverpassRequest('no drawn shape'));
         }
 
+        if (!features) {
+            return dispatch(failOverpassRequest('no features selected'));
+        }
+
         const requestData = createOverpassAPIRequestFormData(
             drawnShape,
             dateRange,
@@ -70,7 +74,7 @@ export function makeOverpassAPIRequest() {
                 },
             },
         })
-            .then(({ data }) => osmtogeojson(data))
+            .then(({ data }) => osmtogeojson(data, { flatProperties: true }))
             .then(data => downloadShapefile(data, dateRange, features))
             .then(data => dispatch(completeOverpassRequest(data)))
             .catch(e => dispatch(failOverpassRequest(e)));

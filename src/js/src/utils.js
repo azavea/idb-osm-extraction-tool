@@ -17,28 +17,28 @@ function convertGeoJSONGeometryToOverPassGeometry({
     return `(poly: "${lineString}")`;
 }
 
-const createOverpassQueryElement = bbox => tag =>
+const createOverpassQueryFunction = bbox => tag =>
     `
     node["${tag}"]${bbox};
     way["${tag}"]${bbox};
     relation["${tag}"]${bbox};
     `;
 
-const createOverpassValueQueryElement = bbox => (tag, value) =>
+const createOverpassValueQueryFunction = bbox => (tag, value) =>
     `
     node["${tag}"="${value}"]${bbox};
     way["${tag}"="${value}"]${bbox};
     relation["${tag}"="${value}"]${bbox};
     `;
 
-const createOverpassDateQueryElement = (bbox, dateSelection) => tag =>
+const createOverpassDateQueryFunction = (bbox, dateSelection) => tag =>
     `
     node["${tag}"]${bbox}(newer:"${dateSelection}");
     way["${tag}"]${bbox}(newer:"${dateSelection}");
     relation["${tag}"]${bbox}(newer:"${dateSelection}");
     `;
 
-const createOverpassDateValueQueryElement = (bbox, dateSelection) => (tag, value) =>
+const createOverpassDateValueQueryFunction = (bbox, dateSelection) => (tag, value) =>
     `
     node["${tag}"="${value}"]${bbox}(newer:"${dateSelection}");
     way["${tag}"="${value}"]${bbox}(newer:"${dateSelection}");
@@ -58,12 +58,12 @@ function createFormDataWithGeometry(shape, dateRange, feature) {
         .entities;
 
     const createOverpassQueryString = dateSelection
-        ? createOverpassDateQueryElement(bbox, dateSelection)
-        : createOverpassQueryElement(bbox);
+        ? createOverpassDateQueryFunction(bbox, dateSelection)
+        : createOverpassQueryFunction(bbox);
 
     const createOverpassValueQueryString = dateSelection
-        ? createOverpassDateValueQueryElement(bbox, dateSelection)
-        : createOverpassValueQueryElement(bbox);
+        ? createOverpassDateValueQueryFunction(bbox, dateSelection)
+        : createOverpassValueQueryFunction(bbox);
 
     const overpassQuery = osmEntities.map(({ tag, values }) => {
         if (values) {
@@ -123,9 +123,10 @@ export function downloadShapefile(geojson, dateRange, feature) {
             file: folder,
             folder,
             types: {
-                point: feature,
-                polygon: feature,
-                line: feature,
+                point: `${feature}-point`,
+                polygon: `${feature}-polygon`,
+                line: `${feature}-line`,
+                polyline: `${feature}-polyline`,
             },
         });
     }

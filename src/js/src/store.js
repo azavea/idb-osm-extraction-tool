@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
 const middleware = process.env.NODE_ENV === 'development' ?
-    [thunk, createLogger()] :
+    [thunk, createLogger({ diff: true, collapsed: true })] :
     [thunk];
 
 export default applyMiddleware(...middleware)(createStore);
