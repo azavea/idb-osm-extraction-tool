@@ -26,12 +26,12 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         ./scripts/lint
         ./scripts/test
 
+        pushd ./src
+
         # Build static asset bundle
-        docker-compose run --rm --no-deps \
-                       -e NODE_ENV="${NODE_ENV:-production}" \
-                       -e INSTALL_ENV="${INSTALL_ENV:-internal}" \
-                       -e VERSION="${GIT_COMMIT}" app \
-                       yarn run bundle
+        yarn run bundle
+
+        popd
 
         # If the cibuild.d directory exists, source each script it
         # contains. This allows the core cibuild.sh to be extended with

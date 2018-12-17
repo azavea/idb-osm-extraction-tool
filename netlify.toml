@@ -1,0 +1,23 @@
+[Settings]
+  ID = "idb-osm-extraction-tool"
+
+# Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.
+
+[build]
+# This is the directory to change to before starting a build.
+  base    = "./src"
+  # NOTE: This is where we will look for package.json/.nvmrc/etc, not root.
+# This is the directory that you are publishing from (relative to root of your repo)
+  publish = "./dist"
+# This will be your default build command
+  command = "pushd .. && ./scripts/cibuild && popd"
+  environment = { NODE_VERSION = "10.7.0", YARN_VERSION = "1.7.0" }
+
+[[headers]]
+  for = "/*"
+[headers.values]
+  Content-Security-Policy = "default-src https: blob: data: 'unsafe-inline' 'unsafe-eval'"
+  X-Frame-Options = "DENY"
+  X-XSS-Protection = "1; mode=block"
+  X-Content-Type-Options = "nosniff"
+  Referrer-Policy = "origin-when-cross-origin"

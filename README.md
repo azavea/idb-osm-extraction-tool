@@ -13,7 +13,7 @@ Friendly front-end for querying OSM features around Guyana and extracting as a S
 Install the application and all required dependencies.
 
 ```sh
-./scripts/setup.sh
+./scripts/setup
 ```
 
 #### Development
@@ -23,8 +23,8 @@ Rebuild Docker images and run application.
 ```sh
 vagrant up
 vagrant ssh
-./scripts/update.sh
-./scripts/server.sh
+./scripts/update
+./scripts/server
 ```
 
 ### Ports
@@ -36,7 +36,7 @@ vagrant ssh
 ### Testing
 
 ```
-./scripts/test.sh
+./scripts/test
 ```
 
 ### Scripts
@@ -48,7 +48,7 @@ vagrant ssh
 | `console`      | Run interactive shell inside application container            |
 | `lint`         | Lint source code                                              |
 | `server`       | Run Docker Compose services                                   |
-| `setup`        | Provision Vagrant VM and run `update.sh`                      |
+| `setup`        | Provision Vagrant VM and run `update`                         |
 | `test`         | Run unit tests                                                |
 | `update`       | Build Docker images                                           |
 
@@ -58,15 +58,8 @@ To add a new NPM package to the project:
 
 - Manually add the package to the project's `package.json` file, ensuring that you
 pin it to a specific version.
-- Add the package to the `vendor` array in `webpack.common.config.js`.
 - Run `./scripts/update` in the VM.
 - Commit the changes to the following files to git:
     - `package.json`
     - `yarn.lock`
-    - `webpack.common.config.js`
-
-#### Notes
-
-* We usually pin packages to a specific version to minimize build errors.
-* For packages in the regular/non-dev dependencies section of `package.json`,
-  manually add the package name to the `vendor` array in `webpack.config.json`
+- We usually pin packages to a specific version to minimize build errors.

@@ -7,7 +7,6 @@
       apt: update_cache=yes cache_valid_time=3600
 
   roles:
-    - { role: "azavea.ntp" }
-    - { role: "azavea.python-security" }
-    - { role: "idb-osm-extraction-tool.docker" }
+    - { role: "azavea.nodejs" }
+    - { role: "azavea.yarn" }
     - { role: "idb-osm-extraction-tool.shellcheck" }

@@ -1,0 +1,204 @@
+.sidebar {
+    height: 100%;
+    width: 35rem;
+    background: $sidebar-gradient;
+    border-right: 2px solid $mediumgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > .header {
+        background-color: $turquoise;
+        height: 4rem;
+        display: flex;
+        padding: 0 0.5rem;
+        justify-content: justify-content;
+        align-items: center;
+
+        > .logo {
+            width: 45px;
+            height: auto;
+            margin-right: 0.5rem;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        > .title {
+            color: $white;
+            letter-spacing: 2px;
+        }
+
+        > .info {
+            margin-left: auto;
+
+            &.button {
+                border: none;
+                background-color: transparent;
+                color: $lightturquoise;
+                font-size: 1.2rem;
+                cursor: pointer;
+
+                &:hover {
+                    color: darken($lightturquoise, 10%);
+                }
+            }
+        }
+    }
+
+    > .draw-tools {
+        align-self: center;
+        width: 80%;
+        margin-top: 2rem;
+
+
+        > .label {
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: $font-weight-bold;
+        }
+
+        > .buttons {
+            display: flex;
+            justify-content: space-between;
+
+            > .button {
+                flex: 1 50%;
+                border: none;
+                margin-bottom: 2rem;
+                align-self: center;
+                background-color: $buttongray;
+                color: $black;
+                height: 3.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: $font-family;
+                font-weight: $font-weight-bold;
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+                padding: 0 1rem;
+                border-radius: $border-radius;
+                cursor: pointer;
+
+                > .icon {
+                    padding: 0 0.5rem 0 0;
+                }
+
+                &.-confirmed {
+                    width: 100% !important;
+                    letter-spacing: 0;
+                    font-weight: $font-weight-normal;
+                    background: $lighttaupe;
+                    justify-content: space-between;
+
+                    > .icon {
+                        &:last-child {
+                            padding: 0;
+                            margin-left: auto;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background: darken($buttongray, 10%);
+                }
+
+                &.-disabled,
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    pointer-events: none;
+                }
+
+                &:first-child {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    > .filters {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+
+        > .select {
+            width: 80%;
+            align-self: center;
+            margin: 1rem;
+            display: flex;
+            flex-direction: column;
+            font-family: $font-family;
+            font-weight: $font-weight-normal;
+            font-size: 0.85rem;
+
+            > .label {
+                margin-bottom: 0.75rem;
+                font-size: 0.85rem;
+                font-weight: $font-weight-bold;
+            }
+
+            > .subscript {
+                font-size: 0.75rem;
+                margin-top: 0.5rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    > .button {
+        &.-extract {
+            font-family: $font-family;
+            font-weight: $font-weight-bold;
+            letter-spacing: 4px;
+            border: none;
+            margin-bottom: 2rem;
+            align-self: center;
+            background: $turquoise;
+            background: $gradient;
+            color: $white;
+            font-size: 1.25rem;
+            width: 80%;
+            height: 4.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.15s;
+            background-size: 400% 400%;
+
+            &:after {
+                content: "";
+                display: block;
+                box-shadow: 0 0 0 2px $lightturquoise;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                bottom: 0.5rem;
+                left: 0.5rem;
+            }
+
+            &:hover {
+              background-position: 100% 50%;
+            }
+
+            &.-disabled,
+            &:disabled {
+                background: $buttongray;
+                cursor: not-allowed;
+
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.Select-option {
+    &.is-focused {
+        background: $lightyellow;
+    }
+}
