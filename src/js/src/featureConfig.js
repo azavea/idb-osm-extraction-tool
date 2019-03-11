@@ -8,7 +8,7 @@ export default
         entities: [
             {
                 tag: 'building',
-                values: ['residential', 'office', 'yes', 'house', 'warehouse', 'public', 'service', 'construction'],
+                values: ['residential', 'office', 'yes', 'house', 'warehouse', 'public', 'service', 'construction', 'shed'],
             },
         ],
     },
@@ -17,7 +17,7 @@ export default
         entities: [
             {
                 tag: 'highway',
-                values: ['primary', 'secondary', 'tertiary', 'residential'],
+                values: ['primary', 'secondary', 'tertiary', 'residential', 'unclassified'],
             },
         ],
     },
