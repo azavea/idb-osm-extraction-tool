@@ -68,13 +68,15 @@ export default
         label: 'Shop/Business',
         entities: [
             { tag: 'shop' },
-            { tag: 'craft'},
+            { tag: 'craft' },
             { tag: 'office' },
-            { tag: 'building',
-              values: ['office'],
+            {
+                tag: 'building',
+                values: ['office'],
             },
-            { tag: 'amenity',
-              values: ['restaurant', 'cafe', 'bar', 'biergarten', 'fast_food', 'marketplace', 'fuel'],
+            {
+                tag: 'amenity',
+                values: ['restaurant', 'cafe', 'internet_cafe', 'bar', 'biergarten', 'fast_food', 'marketplace', 'fuel'],
             },
         ],
     },
@@ -92,12 +94,12 @@ export default
         entities: [
             { tag: 'public_transport' },
             {
-              tag: 'amenity',
-              values: ['bus_station'],
+                tag: 'amenity',
+                values: ['bus_station'],
             },
             {
-              tag: 'highway',
-              values: ['bus_stop'],
+                tag: 'highway',
+                values: ['bus_stop'],
             },
         ],
     },
@@ -106,9 +108,10 @@ export default
         entities: [
             { tag: 'sport' },
             { tag: 'leisure' },
-            { tag: 'landuse',
-              values: ['recreation_ground'],
-           },
+            {
+                tag: 'landuse',
+                values: ['recreation_ground'],
+            },
         ],
     },
     {
