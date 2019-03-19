@@ -1,14 +1,28 @@
-# IDB OSM Extraction Tool
+## IDB OSM Extraction Tool
+### Description and Context
+---
 
-Friendly front-end for querying OSM features around Guyana and extracting as a Shapefile.
+Friendly front-end for querying OSM features around Guyana from the
+[Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API) and
+extracting as a Shapefile.
 
-### Requirements
+<img src="https://user-images.githubusercontent.com/1014341/54622607-3e97aa00-4a40-11e9-9640-3596cf3270a7.png" width=512>
+
+### User Guide
+---
+The development environment is completely encapsulated in the
+Vagrant, Ansible, and Docker files contained in this respository.
+All management scripts can be found in the `./scripts` directory.
+
+### Installation Guide
+
+#### Dependencies
 
 * Vagrant 1.8+
 * VirtualBox 4.3
 * Ansible 2.1+
 
-### Getting Started
+#### Getting Started
 
 Install the application and all required dependencies.
 
@@ -27,19 +41,19 @@ vagrant ssh
 ./scripts/server
 ```
 
-### Ports
+#### Ports
 
 | Service            | Port                            |
 | ------------------ | ------------------------------- |
 | Webpack Dev Server | [`4567`](http://localhost:4567) |
 
-### Testing
+#### Testing
 
 ```
 ./scripts/test
 ```
 
-### Scripts
+#### Scripts
 
 | Name           | Description                                                   |
 | -------------- | ------------------------------------------------------------- |
@@ -52,7 +66,7 @@ vagrant ssh
 | `test`         | Run unit tests                                                |
 | `update`       | Build Docker images                                           |
 
-### Adding NPM Packages
+#### Adding NPM Packages
 
 To add a new NPM package to the project:
 
@@ -64,7 +78,7 @@ pin it to a specific version.
     - `yarn.lock`
 - We usually pin packages to a specific version to minimize build errors.
 
-### Creating a Release with Git Flow
+#### Creating a Release with Git Flow
 
 This project uses git flow for releases. You can [find the latest version of
 `git-flow` to install here](https://github.com/petervanderdoes/gitflow-avh).
@@ -108,3 +122,58 @@ git push --tags
 Once you've pushed the tags, the new release will appear in the project's
 ["Releases" tab in GitHub](https://github.com/azavea/idb-osm-extraction-tool/releases).
 There you can edit the tagged release to add release notes.
+
+### Feature configuration
+OSM tags are grouped into high level features in [the config file](src/js/src/featureConfig.js).
+The configuration can take all values of a tag, only certain keys of a
+tag, and multiple tags. A comprehensive example of a feature configuration is:
+
+```javascript
+{
+        label: 'Shop/Business',
+        entities: [
+            { tag: 'shop' },
+            { tag: 'craft' },
+            { tag: 'office' },
+            {
+                tag: 'building',
+                values: ['office'],
+            },
+            {
+                tag: 'amenity',
+                values: ['restaurant', 'cafe', 'internet_cafe', 'bar', 'biergarten', 'fast_food', 'marketplace', 'fuel'],
+            },
+        ],
+    },
+```
+
+The OSM tags will be converted to an [Overpass API query](https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide) and fetched from that service.
+
+### Code of Conduct 
+---
+
+### Authors
+---
+
+* [@kellyi](https://github.com/kellyi)
+* [@mmcfarland](https://github.com/mmcfarland)
+* [@rbreslow](https://github.com/rbreslow)
+* [@eneedham](https://github.com/eneedham)
+* [@rajadain](https://github.com/rajadain)
+* [@alexlash](https://github.com/alexelash)
+
+For full list see [Contributors](https://github.com/azavea/idb-osm-extraction-tool/graphs/contributors)
+
+### License 
+---
+
+Licensed under [AM-331-A3 Licencia de Software](LICENSE.md)
+
+### Limitation of responsibilities
+---
+
+The IDB is not responsible, under any circumstance, for damage or compensation, moral or patrimonial; direct or indirect; accessory or special; or by way of consequence, foreseen or unforeseen, that could arise:
+
+I. Under any concept of intellectual property, negligence or detriment of another part theory; I
+
+ii. Following the use of the Digital Tool, including, but not limited to defects in the Digital Tool, or the loss or inaccuracy of data of any kind. The foregoing includes expenses or damages associated with communication failures and / or malfunctions of computers, linked to the use of the Digital Tool.

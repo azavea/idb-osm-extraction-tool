@@ -208,6 +208,7 @@ class OSMExtractionMap extends Component {
                 center={initialMapCenter}
                 zoom={initialMapZoom}
                 zoomControl={false}
+                renderer={L.canvas()}
             >
                 <TileLayer
                     url={basemapTilesUrl}

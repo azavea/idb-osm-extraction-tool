@@ -1,3 +1,9 @@
+## 1.2.0
+
+Update README to IDB spec
+Switch to canvas renderer for map features
+Show loading state via Extract button
+
 ## 1.1.0
 
 Update OSM tags configuration.
