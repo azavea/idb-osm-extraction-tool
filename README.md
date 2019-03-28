@@ -2,6 +2,8 @@
 ### Description and Context
 ---
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/32028b66-fa0e-409e-a97a-58cf4d3359dc/deploy-status)](https://app.netlify.com/sites/idb-osm-extraction-tool/deploys)
+
 Friendly front-end for querying OSM features around Guyana from the
 [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API) and
 extracting as a Shapefile.
