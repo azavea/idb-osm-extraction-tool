@@ -6,10 +6,7 @@ export default
     {
         label: 'Buildings',
         entities: [
-            {
-                tag: 'building',
-                values: ['residential', 'office', 'yes', 'house', 'warehouse', 'public', 'service', 'construction', 'shed'],
-            },
+            { tag: 'building' },
         ],
     },
     {
