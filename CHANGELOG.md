@@ -1,3 +1,7 @@
+## 1.3.0
+
+Adjust building tags query configuration to include all tags
+
 ## 1.2.0
 
 Update README to IDB spec
