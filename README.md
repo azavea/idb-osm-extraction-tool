@@ -2,6 +2,8 @@
 ### Description and Context
 ---
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/32028b66-fa0e-409e-a97a-58cf4d3359dc/deploy-status)](https://app.netlify.com/sites/idb-osm-extraction-tool/deploys)
+
 Friendly front-end for querying OSM features around Guyana from the
 [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API) and
 extracting as a Shapefile.
@@ -167,7 +169,9 @@ For full list see [Contributors](https://github.com/azavea/idb-osm-extraction-to
 ### License 
 ---
 
-Licensed under [AM-331-A3 Licencia de Software](LICENSE.md)
+The Documentation of Support and Use of the software is licensed under Creative Commons IGO 3.0 Attribution-NonCommercial-NoDerivative (CC-IGO 3.0 BY-NC-ND)
+
+The codebase of this repo uses [AM-331-A3 Software License](LICENSE.md).
 
 ### Limitation of responsibilities
 ---
